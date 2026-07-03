@@ -1,65 +1,74 @@
-import Image from "next/image";
+import type { Metadata } from "next";
+import Hero from "@/components/home/Hero";
+import TrustBar from "@/components/home/TrustBar";
+import Destinations from "@/components/home/Destinations";
+import FeaturedHotels from "@/components/home/FeaturedHotels";
+import WhyLimeTree from "@/components/home/WhyLimeTree";
+import CorporateSection from "@/components/home/CorporateSection";
+import MedicalTourism from "@/components/home/MedicalTourism";
+import HolidayPackages from "@/components/home/HolidayPackages";
+import WomenTravelers from "@/components/home/WomenTravelers";
+import Reviews from "@/components/home/Reviews";
+import OffersSection from "@/components/home/OffersSection";
+import AwardsStrip from "@/components/home/AwardsStrip";
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: "Lime Tree Hotels & Serviced Apartments | Gurgaon, Delhi, Jaipur, Noida, Goa",
+  description:
+    "Lime Tree Hotels — 12 years, 500+ rooms, 30+ properties across 7 Indian cities. Premium hotels, serviced apartments (Studio to 3BHK), villas, and banquet halls. Medical tourism, corporate stays, holiday packages. Book direct for best rates.",
+  keywords: ["Lime Tree Hotels", "serviced apartments Gurgaon", "hotel near Medanta", "corporate stay Gurgaon", "holiday packages India"],
+  openGraph: {
+    title: "Lime Tree Hotels & Serviced Apartments — Feel Like Home",
+    description: "12 Years · 500+ Rooms · 30+ Properties · 7 Cities. Hotels, serviced apartments & villas across Gurgaon, Delhi, Jaipur, Greater Noida, Noida, Vrindavan & Goa.",
+    images: [{ url: "https://assets.simplotel.com/simplotel/image/upload/w_5000,h_3333/x_234,y_0,w_4532,h_3333,r_0,c_crop/q_80,w_1200,dpr_1,f_auto,fl_progressive,c_limit/lime-tree-hotel-sushant-lok-gurgaon---next-to-iffco-chowk-metro-station/DSC09899_ozpuez" }],
+  },
+};
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LodgingBusiness",
+            name: "Lime Tree Hotels",
+            description: "Premium Hotels & Serviced Apartments across 7 Indian cities",
+            url: "https://www.limetreehotels.com",
+            telephone: "+91 74790 00111",
+            email: "reservation@limetreehotels.com",
+            foundingDate: "2011",
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: "Plot A-583, Near Huda City Centre, Sector 43",
+              addressLocality: "Gurugram",
+              addressRegion: "Haryana",
+              postalCode: "122002",
+              addressCountry: "IN",
+            },
+            aggregateRating: {
+              "@type": "AggregateRating",
+              ratingValue: "4.4",
+              reviewCount: "5000",
+              bestRating: "5",
+            },
+          }),
+        }}
+      />
+
+      <Hero />
+      <TrustBar />
+      <Destinations />
+      <FeaturedHotels />
+      <MedicalTourism />
+      <WhyLimeTree />
+      <CorporateSection />
+      <HolidayPackages />
+      <WomenTravelers />
+      <Reviews />
+      <OffersSection />
+      <AwardsStrip />
+    </>
   );
 }

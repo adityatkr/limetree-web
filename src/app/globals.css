@@ -1,26 +1,308 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* === BRAND COLORS === */
+  --color-primary: #65a745;
+  --color-primary-50: #f0f7ec;
+  --color-primary-100: #d8edd0;
+  --color-primary-200: #b2dba1;
+  --color-primary-300: #8dc872;
+  --color-primary-400: #7ec258;
+  --color-primary-500: #65a745;
+  --color-primary-600: #4f8433;
+  --color-primary-700: #3c6527;
+  --color-primary-800: #2a4a1a;
+  --color-primary-900: #16290d;
+
+  --color-accent: #ffcc09;
+  --color-accent-50: #fffde7;
+  --color-accent-100: #fff9c4;
+  --color-accent-200: #fff176;
+  --color-accent-300: #ffd740;
+  --color-accent-400: #ffca28;
+  --color-accent-500: #ffcc09;
+  --color-accent-600: #ffb300;
+  --color-accent-700: #ff8f00;
+
+  --color-cream: #fafaf8;
+  --color-cream-50: #fdfdfb;
+  --color-cream-100: #f5f5f0;
+  --color-cream-200: #ebebdf;
+
+  --color-dark: #1d1d1d;
+  --color-dark-50: #f8f8f8;
+  --color-dark-100: #f0f0f0;
+  --color-dark-200: #e0e0e0;
+  --color-dark-300: #c0c0c0;
+  --color-dark-400: #a0a0a0;
+  --color-dark-500: #707070;
+  --color-dark-600: #505050;
+  --color-dark-700: #3c3c3c;
+  --color-dark-800: #2a2a2a;
+  --color-dark-900: #1d1d1d;
+
+  --color-success: #4caf50;
+  --color-error: #e53935;
+  --color-warning: #ff9800;
+
+  /* === TYPOGRAPHY === */
+  --font-display: var(--font-playfair), "Georgia", "Times New Roman", serif;
+  --font-sans: var(--font-plus-jakarta), "Inter", system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), "Courier New", monospace;
+
+  /* === BORDER RADIUS === */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-3xl: 40px;
+  --radius-full: 9999px;
+
+  /* === SHADOWS === */
+  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-card: 0 4px 24px -4px rgba(0, 0, 0, 0.08);
+  --shadow-elevated: 0 8px 40px -8px rgba(0, 0, 0, 0.12);
+  --shadow-luxury: 0 16px 64px -12px rgba(0, 0, 0, 0.16);
+  --shadow-float: 0 32px 80px -16px rgba(0, 0, 0, 0.22);
+  --shadow-primary: 0 8px 32px -4px rgba(101, 167, 69, 0.32);
+  --shadow-glow: 0 0 40px rgba(101, 167, 69, 0.2);
+
+  /* === TRANSITIONS === */
+  --ease-luxury: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* === GRADIENTS === */
+  --gradient-primary: linear-gradient(135deg, #65a745 0%, #4f8433 100%);
+  --gradient-accent: linear-gradient(135deg, #ffcc09 0%, #ffb300 100%);
+  --gradient-hero: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.55) 100%);
+  --gradient-card: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.8) 100%);
+  --gradient-luxury: linear-gradient(135deg, #1d1d1d 0%, #3c3c3c 100%);
+  --gradient-cream: linear-gradient(135deg, #fafaf8 0%, #f0f0e8 100%);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* === BASE STYLES === */
+/* Wrapped in @layer base so Tailwind utilities (@layer utilities) can override
+   these rules. Unlayered styles always beat layered ones in the cascade, which
+   previously let `* { margin: 0; padding: 0 }` nullify every margin/padding
+   utility (px-*, py-*, mx-auto, ...) across the site. */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-cream);
+    color: var(--color-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  /* === TYPOGRAPHY === */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    line-height: 1.7;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* === SCROLLBAR === */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #65a745;
+}
+
+/* === SELECTION === */
+::selection {
+  background: rgba(101, 167, 69, 0.2);
+  color: var(--color-dark);
+}
+
+/* === FOCUS STYLES === */
+/* Layered so Tailwind's focus-visible:outline-none / focus:ring-* utilities
+   (used in 11+ files for custom focus rings) can actually override this
+   default — same unlayered-beats-layered cascade issue as the reset above. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/* === GLASS MORPHISM === */
+.glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* === SECTION SPACING === */
+.section-padding {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+/* === CONTAINER === */
+.container-luxury {
+  width: 100%;
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+@media (min-width: 640px) {
+  .container-luxury {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .container-luxury {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* === IMAGE ZOOM === */
+.img-zoom {
+  overflow: hidden;
+}
+
+.img-zoom img {
+  transition: transform 0.7s var(--ease-luxury);
+}
+
+.img-zoom:hover img {
+  transform: scale(1.06);
+}
+
+/* === GRADIENT OVERLAYS === */
+.hero-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.05) 0%,
+    rgba(0, 0, 0, 0.25) 40%,
+    rgba(0, 0, 0, 0.65) 100%
+  );
+}
+
+.card-overlay {
+  background: linear-gradient(
+    to bottom,
+    transparent 30%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+}
+
+/* === CUSTOM CHECKBOX === */
+.checkbox-custom {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #e0e0e0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.checkbox-custom:checked {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.checkbox-custom:checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 5px;
+  height: 9px;
+  border: 2px solid white;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+
+/* === RANGE INPUT === */
+input[type="range"] {
+  appearance: none;
+  height: 4px;
+  background: #e0e0e0;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(101, 167, 69, 0.4);
+}
+
+/* === STICKY BOOKING CARD === */
+.sticky-booking-card {
+  position: sticky;
+  top: 5rem;
+  max-height: calc(100vh - 6rem);
+  overflow-y: auto;
+}
+
+/* === HIDE SCROLLBAR === */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* === REDUCED MOTION === */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
