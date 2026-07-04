@@ -13,8 +13,14 @@ export default function FeaturedHotels() {
   const featured = HOTELS.filter((h) => h.featured).slice(0, 6);
 
   return (
-    <section className="py-20 bg-stone-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative py-20 bg-stone-50 overflow-hidden">
+      {/* Decorative background glow */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-primary-200/40 rounded-full blur-3xl" />
+        <div className="absolute -bottom-32 -right-24 w-[28rem] h-[28rem] bg-accent-200/40 rounded-full blur-3xl" />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-10">
           <p className="flex items-center justify-center gap-2 text-primary-600 text-xs font-semibold uppercase tracking-widest mb-2">
@@ -35,8 +41,11 @@ export default function FeaturedHotels() {
             <Link
               key={hotel.id}
               href={`/hotels/${hotel.slug}`}
-              className={`group relative bg-white rounded-2xl overflow-hidden border border-stone-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col ${i === 0 ? "sm:col-span-2 lg:col-span-1" : ""}`}
+              className={`group relative bg-white rounded-2xl overflow-hidden border border-stone-100 hover:border-primary-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col ${i === 0 ? "sm:col-span-2 lg:col-span-1" : ""}`}
             >
+              {/* Hover accent line */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 to-accent-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 z-10" />
+
               {/* Image */}
               <div className="relative overflow-hidden h-52">
                 <Image
@@ -82,7 +91,7 @@ export default function FeaturedHotels() {
                 {/* Amenity chips */}
                 <div className="flex flex-wrap gap-1.5 mb-4">
                   {hotel.amenities.slice(0, 3).map((a) => (
-                    <span key={a} className="flex items-center gap-1 text-stone-500 text-[10px] bg-stone-50 border border-stone-100 px-2 py-0.5 rounded-full">
+                    <span key={a} className="flex items-center gap-1 text-primary-700 text-[10px] bg-primary-50 border border-primary-100 px-2 py-0.5 rounded-full">
                       {ICON_AMENITIES[a] || null}{a}
                     </span>
                   ))}

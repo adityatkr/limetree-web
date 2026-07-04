@@ -33,6 +33,7 @@ interface Props {
 export default function PropertyDetail({ hotel }: Props) {
   const [galleryIndex, setGalleryIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const extraImages = hotel.images.slice(1, 5);
   const [wishlisted, setWishlisted] = useState(false);
   const [activeTab, setActiveTab] = useState("overview");
 
@@ -66,7 +67,7 @@ export default function PropertyDetail({ hotel }: Props) {
       <div className="relative bg-dark">
         <div className="grid grid-cols-4 gap-2 h-[70vh] max-h-[600px] p-2">
           <div
-            className="col-span-4 md:col-span-2 relative rounded-xl overflow-hidden cursor-pointer img-zoom"
+            className={`col-span-4 relative rounded-xl overflow-hidden cursor-pointer img-zoom ${extraImages.length > 0 ? "md:col-span-2" : ""}`}
             onClick={() => { setGalleryIndex(0); setLightboxOpen(true); }}
           >
             <Image
@@ -74,34 +75,46 @@ export default function PropertyDetail({ hotel }: Props) {
               alt={hotel.name}
               fill
               className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
+              sizes={extraImages.length > 0 ? "(max-width: 768px) 100vw, 50vw" : "100vw"}
               priority
             />
           </div>
-          <div className="hidden md:grid col-span-2 grid-cols-2 gap-2">
-            {hotel.images.slice(1, 5).map((img, i) => (
-              <div
-                key={i}
-                className="relative rounded-xl overflow-hidden cursor-pointer img-zoom"
-                onClick={() => { setGalleryIndex(i + 1); setLightboxOpen(true); }}
-              >
-                <Image
-                  src={img}
-                  alt={`${hotel.name} ${i + 2}`}
-                  fill
-                  className="object-cover"
-                  sizes="25vw"
-                />
-                {i === 3 && hotel.images.length > 5 && (
-                  <div className="absolute inset-0 bg-dark/60 flex items-center justify-center">
-                    <span className="text-white font-semibold text-lg">
-                      +{hotel.images.length - 5} Photos
-                    </span>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+          {extraImages.length > 0 && (
+            <div
+              className={`hidden md:grid col-span-2 gap-2 ${
+                extraImages.length === 1
+                  ? "grid-cols-1 grid-rows-1"
+                  : extraImages.length === 2
+                  ? "grid-cols-2 grid-rows-1"
+                  : "grid-cols-2 grid-rows-2"
+              }`}
+            >
+              {extraImages.map((img, i) => (
+                <div
+                  key={i}
+                  className={`relative rounded-xl overflow-hidden cursor-pointer img-zoom ${
+                    extraImages.length === 3 && i === 0 ? "row-span-2" : ""
+                  }`}
+                  onClick={() => { setGalleryIndex(i + 1); setLightboxOpen(true); }}
+                >
+                  <Image
+                    src={img}
+                    alt={`${hotel.name} ${i + 2}`}
+                    fill
+                    className="object-cover"
+                    sizes="25vw"
+                  />
+                  {i === 3 && hotel.images.length > 5 && (
+                    <div className="absolute inset-0 bg-dark/60 flex items-center justify-center">
+                      <span className="text-white font-semibold text-lg">
+                        +{hotel.images.length - 5} Photos
+                      </span>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Gallery Actions */}
