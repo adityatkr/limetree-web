@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { HOTELS } from "@/lib/data";
 import HotelCard from "@/components/ui/HotelCard";
+import FAQSection from "@/components/ui/FAQSection";
 import { ChefHat, Sofa, Shirt, Monitor, Clock, CheckCircle2, ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -60,6 +61,17 @@ const INCLUSIONS = [
 ];
 
 const apartments = HOTELS.filter((h) => h.propertyType === "serviced-apartment");
+
+const FAQS = [
+  { q: "What's the minimum stay for a serviced apartment?", a: "Serviced apartments can be booked for a single night, but the best value kicks in from 7+ nights, with the biggest savings on monthly (28+ night) packages." },
+  { q: "How is a serviced apartment different from a hotel room?", a: "A serviced apartment gives you a separate bedroom and living room, a fully equipped kitchen, and an in-unit washing machine — plus hotel-grade housekeeping and concierge support. It's built for longer, independent stays rather than a single night." },
+  { q: "Is the kitchen fully equipped, or do I need to bring my own utensils?", a: "Every apartment comes with a refrigerator, microwave, cooktop, and a complete set of cookware, crockery, and utensils — ready to cook in from the moment you check in." },
+  { q: "How often is housekeeping provided?", a: "Weekly housekeeping is included with every stay. Daily housekeeping and additional linen changes can be arranged on request for an extra charge." },
+  { q: "Is there a security deposit?", a: "A refundable security deposit may apply for monthly and long-stay bookings, adjusted against any damages. Nightly and weekly bookings typically don't require one — ask our reservations team for the exact terms on your dates." },
+  { q: "Can companies book serviced apartments for relocating employees?", a: "Yes — this is one of our most common use cases. We offer GST-compliant invoicing, consolidated monthly billing, and priority allocation for corporate accounts. Contact our corporate team to set up an account." },
+  { q: "Is parking and WiFi included?", a: "Yes, complimentary parking and high-speed WiFi are included at every serviced apartment, along with 24x7 power backup and security." },
+  { q: "Which locations have 2BHK and 3BHK apartments?", a: "Our 2BHK apartments on Golf Course Road and 3BHK units in DLF Phase-5, Gurgaon are the most popular for families and extended teams. Availability varies by date — check the property listings below or contact us for current options." },
+];
 
 export default function ServicedApartmentsPage() {
   return (
@@ -184,6 +196,14 @@ export default function ServicedApartmentsPage() {
           </div>
         </section>
       )}
+
+      {/* FAQs */}
+      <FAQSection
+        eyebrow="Have Questions?"
+        title="Serviced Apartments FAQs"
+        subtitle="Everything you need to know about extended stays, kitchens, billing, and bookings."
+        faqs={FAQS}
+      />
     </div>
   );
 }
