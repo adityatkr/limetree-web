@@ -62,6 +62,24 @@ const INCLUSIONS = [
 
 const apartments = HOTELS.filter((h) => h.propertyType === "serviced-apartment");
 
+const APARTMENT_GROUPS = [
+  { label: "1 BHK", match: (name: string) => /1\s*-?\s*bhk/i.test(name) },
+  { label: "2 BHK", match: (name: string) => /2\s*-?\s*bhk/i.test(name) },
+  { label: "3 BHK", match: (name: string) => /3\s*-?\s*bhk/i.test(name) },
+  { label: "Studio", match: (name: string) => /studio/i.test(name) },
+];
+
+const groupedApartments = APARTMENT_GROUPS.map((group) => ({
+  label: group.label,
+  units: apartments.filter((h) => group.match(h.name)),
+})).filter((group) => group.units.length > 0);
+
+const categorized = new Set(groupedApartments.flatMap((g) => g.units.map((h) => h.id)));
+const miscApartments = apartments.filter((h) => !categorized.has(h.id));
+if (miscApartments.length > 0) {
+  groupedApartments.push({ label: "Other", units: miscApartments });
+}
+
 const FAQS = [
   { q: "What's the minimum stay for a serviced apartment?", a: "Serviced apartments can be booked for a single night, but the best value kicks in from 7+ nights, with the biggest savings on monthly (28+ night) packages." },
   { q: "How is a serviced apartment different from a hotel room?", a: "A serviced apartment gives you a separate bedroom and living room, a fully equipped kitchen, and an in-unit washing machine — plus hotel-grade housekeeping and concierge support. It's built for longer, independent stays rather than a single night." },
@@ -188,9 +206,20 @@ export default function ServicedApartmentsPage() {
               <p className="text-primary-600 text-xs font-semibold uppercase tracking-widest mb-2">Our Apartments</p>
               <h2 className="font-bold text-stone-900 text-3xl" style={{ fontFamily: "var(--font-display)" }}>Available Serviced Apartments</h2>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {apartments.map((hotel) => (
-                <HotelCard key={hotel.id} hotel={hotel} />
+            <div className="flex flex-col gap-14">
+              {groupedApartments.map((group) => (
+                <div key={group.label}>
+                  <div className="flex items-center gap-3 mb-6">
+                    <h3 className="font-bold text-stone-900 text-xl" style={{ fontFamily: "var(--font-display)" }}>{group.label}</h3>
+                    <span className="text-xs text-stone-400 bg-stone-100 px-2.5 py-1 rounded-full">{group.units.length} {group.units.length === 1 ? "property" : "properties"}</span>
+                    <div className="flex-1 h-px bg-stone-100" />
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {group.units.map((hotel) => (
+                      <HotelCard key={hotel.id} hotel={hotel} />
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           </div>
