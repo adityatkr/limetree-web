@@ -11,6 +11,16 @@ import WomenTravelers from "@/components/home/WomenTravelers";
 import Reviews from "@/components/home/Reviews";
 import OffersSection from "@/components/home/OffersSection";
 import AwardsStrip from "@/components/home/AwardsStrip";
+import FAQSection from "@/components/ui/FAQSection";
+
+const FAQS = [
+  { q: "Is it cheaper to book directly on this website?", a: "Yes. Booking direct always gets you our best available rate, plus perks like free cancellation and offers that aren't available on third-party platforms." },
+  { q: "What's the difference between a hotel room and a serviced apartment?", a: "A serviced apartment gives you a separate bedroom, living room, and full kitchen — built for longer, independent stays. A hotel room is ideal for shorter visits with daily housekeeping and on-site dining." },
+  { q: "What is the check-in and check-out time?", a: "Standard check-in is 2:00 PM and check-out is 12:00 PM (noon). Early check-in and late check-out can be arranged subject to availability." },
+  { q: "What is the cancellation policy?", a: "Most rates offer free cancellation up to 24 hours before check-in. Some promotional rates are non-refundable — the exact policy is shown before you confirm your booking." },
+  { q: "Do you offer corporate rates and GST invoicing?", a: "Yes, corporate accounts get negotiated rates, GST-compliant invoicing, and consolidated monthly billing. Contact our corporate team to get set up." },
+  { q: "Which cities do you have properties in?", a: "Lime Tree Hotels operates 30+ properties across Gurgaon, Delhi, Jaipur, Greater Noida, Noida, Vrindavan, and Goa — including hotels, serviced apartments, a villa, and banquet halls." },
+];
 
 export const metadata: Metadata = {
   title: "Lime Tree Hotels & Serviced Apartments | Gurgaon, Delhi, Jaipur, Noida, Goa",
@@ -69,6 +79,12 @@ export default function HomePage() {
       <Reviews />
       <OffersSection />
       <AwardsStrip />
+      <FAQSection
+        eyebrow="Have Questions?"
+        title="Frequently Asked Questions"
+        subtitle="Quick answers about booking, stays, and rates. Browse our full FAQ for more."
+        faqs={FAQS}
+      />
     </>
   );
 }
