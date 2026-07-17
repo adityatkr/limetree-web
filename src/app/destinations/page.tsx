@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Building2, ArrowRight } from "lucide-react";
 import { DESTINATIONS } from "@/lib/data";
-import SectionHeader from "@/components/ui/SectionHeader";
 import { formatPrice } from "@/lib/utils";
 
 export const metadata: Metadata = {

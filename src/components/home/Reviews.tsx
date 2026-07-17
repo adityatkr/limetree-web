@@ -5,10 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { Star, ChevronLeft, ChevronRight, BadgeCheck } from "lucide-react";
 import { GLOBAL_REVIEWS } from "@/lib/data";
-
-function getInitials(name: string) {
-  return name.split(" ").map((w) => w[0]).join("").toUpperCase().slice(0, 2);
-}
+import { getInitials } from "@/lib/utils";
 
 const PLATFORM_COLORS: Record<string, string> = {
   google: "text-blue-500",

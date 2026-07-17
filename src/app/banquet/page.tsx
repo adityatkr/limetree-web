@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Users, Calendar, Camera, CheckCircle2, ArrowRight, Star } from "lucide-react";
+import { Users, CheckCircle2, ArrowRight } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
 
 export const metadata: Metadata = {

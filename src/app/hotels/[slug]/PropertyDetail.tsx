@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  MapPin, Star, Wifi, Share2, Heart, ChevronLeft, ChevronRight,
+  MapPin, Wifi, Share2, Heart, ChevronLeft, ChevronRight,
   X, Check, Phone, Calendar, Users, Coffee, Dumbbell, Car,
   Waves, Sparkles, Utensils, Shield, ArrowRight
 } from "lucide-react";

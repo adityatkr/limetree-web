@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { MapPin, Clock, ArrowRight, Users, Sparkles, TrendingUp, Heart } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
 

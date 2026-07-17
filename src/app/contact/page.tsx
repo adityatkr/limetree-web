@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Phone, Mail, MessageCircle, MapPin, ArrowRight } from "lucide-react";
 import { PHONE_NUMBER, EMAIL, WHATSAPP_URL, HQ_ADDRESS } from "@/lib/utils";
 

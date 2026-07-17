@@ -73,7 +73,6 @@ export default function Navbar() {
 
   const solid = scrolled || !isHome;
   const navBg = solid ? "bg-white/96 backdrop-blur-md border-b border-stone-100 shadow-sm" : "bg-transparent";
-  const logoColor = solid ? "text-stone-900" : "text-white";
   const linkColor = solid ? "text-stone-600 hover:text-primary-600" : "text-white/90 hover:text-white";
   const phoneColor = solid ? "text-stone-500" : "text-white/70";
 

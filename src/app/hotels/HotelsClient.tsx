@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   SlidersHorizontal, X, ChevronDown, LayoutGrid, List,
-  MapPin, Search, Star
+  Search, Star
 } from "lucide-react";
 import { HOTELS } from "@/lib/data";
 import HotelCard from "@/components/ui/HotelCard";
@@ -71,6 +71,10 @@ export default function HotelsClient({ searchParams }: Props) {
 
     if (selectedTypes.length > 0) {
       list = list.filter((h) => selectedTypes.includes(h.propertyType));
+    }
+
+    if (breakfastOnly) {
+      list = list.filter((h) => h.rooms.some((r) => r.breakfastIncluded));
     }
 
     switch (sortBy) {
