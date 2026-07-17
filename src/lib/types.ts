@@ -1,14 +1,7 @@
 export type PropertyType = "hotel" | "serviced-apartment" | "villa";
-export type RoomType = "standard" | "deluxe" | "suite" | "premium" | "studio" | "1bhk" | "2bhk" | "3bhk";
+export type RoomType = "standard" | "deluxe" | "suite" | "premium" | "studio" | "1bhk" | "2bhk" | "3bhk" | "4bhk";
 export type CancellationPolicy = "free" | "partial" | "non-refundable";
 export type StayType = "short" | "long" | "corporate";
-
-export interface Amenity {
-  id: string;
-  name: string;
-  icon: string;
-  category: "room" | "property" | "dining" | "wellness" | "business";
-}
 
 export interface Location {
   city: string;
@@ -128,67 +121,3 @@ export interface Offer {
   featured: boolean;
 }
 
-export interface SearchParams {
-  destination?: string;
-  checkIn?: string;
-  checkOut?: string;
-  guests?: number;
-  rooms?: number;
-  promoCode?: string;
-  propertyType?: PropertyType;
-  minPrice?: number;
-  maxPrice?: number;
-  minRating?: number;
-  amenities?: string[];
-  sortBy?: "price-asc" | "price-desc" | "rating" | "popular";
-}
-
-export interface BookingInquiry {
-  hotelId: string;
-  roomId: string;
-  checkIn: Date;
-  checkOut: Date;
-  adults: number;
-  children: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  specialRequests?: string;
-  promoCode?: string;
-}
-
-export interface ContactForm {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  subject: string;
-  message: string;
-  propertyOfInterest?: string;
-}
-
-export interface TableReservation {
-  restaurantId: string;
-  date: Date;
-  time: string;
-  guests: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  occasion?: string;
-  specialRequests?: string;
-}
-
-export interface BanquetInquiry {
-  eventType: string;
-  date: Date;
-  guestCount: number;
-  budget: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  requirements: string;
-}

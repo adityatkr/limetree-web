@@ -81,7 +81,7 @@ export const DESTINATIONS: Destination[] = [
     description: "4BHK luxury villa with a private pool — the ultimate escape on India's most beloved coastline.",
     image: "/images/hotels/goa-villa/pool2-7939cbbc.jpg",
     propertyCount: 1,
-    startingPrice: 4500,
+    startingPrice: 45000,
     highlights: ["Private Pool", "4BHK Villa", "Beachside"],
     popularFor: ["Family Vacations", "Group Getaways", "Luxury Stays"],
   },
@@ -328,7 +328,7 @@ export const HOTELS: Hotel[] = [
     rooms: [
       {
         id: "lt-grg-mill-king",
-        type: "premium",
+        type: "deluxe",
         name: "Superior King Room",
         description: "323 sq. ft. room with a plush king size bed, private balcony, separate living space, air-conditioning, and tea/coffee maker.",
         images: [
@@ -346,7 +346,7 @@ export const HOTELS: Hotel[] = [
       },
       {
         id: "lt-grg-mill-twin",
-        type: "deluxe",
+        type: "premium",
         name: "Superior Double or Twin Room",
         description: "350 sq. ft. room with flexible double or twin beds, private balcony, separate living room, spacious wardrobe, and HD television.",
         images: [
@@ -497,7 +497,7 @@ export const HOTELS: Hotel[] = [
     rooms: [
       {
         id: "lt-grg-32ave-king",
-        type: "premium",
+        type: "deluxe",
         name: "Superior King Room",
         description: "300 sq. ft. room with a king size bed, free Wi-Fi, 32-inch LED TV, workspace, dressing space, and wardrobe — 16 rooms in this category.",
         images: [
@@ -521,7 +521,7 @@ export const HOTELS: Hotel[] = [
       },
       {
         id: "lt-grg-32ave-balcony",
-        type: "deluxe",
+        type: "premium",
         name: "King Room with Balcony",
         description: "400 sq. ft. room with a king size bed and a beautiful balcony view, plus free Wi-Fi, air-conditioning, 32-inch LED TV, workspace, and wardrobe — 4 rooms in this category.",
         images: [
@@ -1682,7 +1682,7 @@ export const HOTELS: Hotel[] = [
     name: "Lime Tree Luxury 2BHK Serviced Apartment",
     tagline: "Live Better, Stay Smarter in Sector 52",
     description:
-      "Luxury 2BHK and 1BHK serviced apartments at Plot 776, Wazirabad, Sector 52 — ideal for business, medical, or leisure stays. Comfortable living spaces, private balconies to relax on, a fully equipped kitchen, and entertainment at your fingertips.",
+      "A luxury 2BHK serviced apartment spread across 800 sq. ft. at Plot 776, Wazirabad, Sector 52 — ideal for business, medical, or leisure stays. Two bedrooms with king beds, private balconies, a cosy living area, a fully equipped kitchen, and entertainment at your fingertips.",
     propertyType: "serviced-apartment",
     location: {
       city: "Gurgaon",
@@ -1721,8 +1721,8 @@ export const HOTELS: Hotel[] = [
     rating: 4.6,
     reviewCount: 128,
     starCategory: 4,
-    pricePerNight: 3299,
-    originalPrice: 4700,
+    pricePerNight: 4499,
+    originalPrice: 6400,
     rooms: [
       {
         id: "lt-grg-apt-lux2bhk-2r",
@@ -1754,27 +1754,6 @@ export const HOTELS: Hotel[] = [
         pricePerNight: 4499,
         originalPrice: 6400,
         amenities: ["Fully Equipped Kitchen", "Free WiFi", "AC", "Smart TV", "Balcony", "Dining Space"],
-        available: true,
-        cancellationPolicy: "free",
-        breakfastIncluded: false,
-      },
-      {
-        id: "lt-grg-apt-lux2bhk-1r",
-        type: "1bhk",
-        name: "1 BHK Apartment",
-        description: "Luxury one-bedroom apartment with living area, private balcony, fully equipped kitchen, and premium furnishings.",
-        images: [
-          "/images/hotels/luxury-2bhk/dining-area-3312e991.jpg",
-          "/images/hotels/luxury-2bhk/img-2909.jpg",
-          "/images/hotels/luxury-2bhk/img-2910.jpg",
-          "/images/hotels/luxury-2bhk/img-2911.jpg",
-        ],
-        size: 55,
-        maxOccupancy: 3,
-        bedType: "King",
-        pricePerNight: 3299,
-        originalPrice: 4700,
-        amenities: ["Fully Equipped Kitchen", "Free WiFi", "AC", "Smart TV", "Balcony"],
         available: true,
         cancellationPolicy: "free",
         breakfastIncluded: false,
@@ -2979,9 +2958,32 @@ export const HOTELS: Hotel[] = [
     rating: 4.9,
     reviewCount: 89,
     starCategory: 5,
-    pricePerNight: 4500,
-    originalPrice: 6000,
+    pricePerNight: 45000,
+    originalPrice: 60000,
     rooms: [
+      {
+        id: "lt-goa-villa-r",
+        type: "4bhk",
+        name: "Entire 4BHK Villa",
+        description: "The full villa — four luxurious bedrooms, private pool, fully-equipped kitchen with pantry service, garden, and space for up to 12 guests.",
+        images: [
+          "/images/hotels/goa-villa/beach1-0a525255.jpg",
+          "/images/hotels/goa-villa/beach2-17bf7552.jpg",
+          "/images/hotels/goa-villa/beach3-ab68b629.jpg",
+          "/images/hotels/goa-villa/living-room-366950a8.jpg",
+          "/images/hotels/goa-villa/pool1-7c245277.jpg",
+          "/images/hotels/goa-villa/pool2-7939cbbc.jpg",
+        ],
+        size: 350,
+        maxOccupancy: 12,
+        bedType: "4x King",
+        pricePerNight: 45000,
+        originalPrice: 60000,
+        amenities: ["Private Pool", "Full Kitchen", "AC", "Smart TV", "Garden", "Pantry Service", "Free Parking"],
+        available: true,
+        cancellationPolicy: "partial",
+        breakfastIncluded: false,
+      },
       {
         id: "lt-goa-villa-room",
         type: "deluxe",
@@ -2997,29 +2999,6 @@ export const HOTELS: Hotel[] = [
         pricePerNight: 4500,
         originalPrice: 6000,
         amenities: ["Private Pool Access", "Free WiFi", "AC", "TV", "Balcony", "Kitchen & Pantry Service"],
-        available: true,
-        cancellationPolicy: "partial",
-        breakfastIncluded: false,
-      },
-      {
-        id: "lt-goa-villa-r",
-        type: "3bhk",
-        name: "Entire 4BHK Villa",
-        description: "The full villa — four luxurious bedrooms, private pool, fully-equipped kitchen with pantry service, garden, and space for up to 12 guests.",
-        images: [
-          "/images/hotels/goa-villa/beach1-0a525255.jpg",
-          "/images/hotels/goa-villa/beach2-17bf7552.jpg",
-          "/images/hotels/goa-villa/beach3-ab68b629.jpg",
-          "/images/hotels/goa-villa/living-room-366950a8.jpg",
-          "/images/hotels/goa-villa/pool1-7c245277.jpg",
-          "/images/hotels/goa-villa/pool2-7939cbbc.jpg",
-        ],
-        size: 350,
-        maxOccupancy: 12,
-        bedType: "4x King",
-        pricePerNight: 18000,
-        originalPrice: 25000,
-        amenities: ["Private Pool", "Full Kitchen", "AC", "Smart TV", "Garden", "Pantry Service", "Free Parking"],
         available: true,
         cancellationPolicy: "partial",
         breakfastIncluded: false,
@@ -3304,14 +3283,6 @@ export const HOLIDAY_PACKAGES = [
   },
 ];
 
-export const TRUST_STATS = [
-  { value: 12, suffix: "+", label: "Years of Trust", sublabel: "Est. 2011", icon: "calendar" },
-  { value: 500, suffix: "+", label: "Rooms", sublabel: "Across properties", icon: "bed" },
-  { value: 30, suffix: "+", label: "Properties", sublabel: "7 cities", icon: "building" },
-  { value: 4.4, suffix: "★", label: "Avg Rating", sublabel: "Verified guests", icon: "star", decimals: 1 },
-  { value: 50000, suffix: "+", label: "Happy Guests", sublabel: "Since 2013", icon: "users" },
-];
-
 export const CORPORATE_BENEFITS = [
   { title: "Dedicated Relationship Manager", desc: "Every corporate account gets a personal RM for seamless bookings and escalations." },
   { title: "GST-Compliant Invoicing", desc: "Transparent, auto-generated GST invoices for every stay — expense management made easy." },
@@ -3323,22 +3294,3 @@ export const CORPORATE_BENEFITS = [
   { title: "Airport Transfers", desc: "Professional airport pick-up and drop service for corporate accounts." },
 ];
 
-export const AMENITY_ICONS: Record<string, string> = {
-  "Free WiFi": "wifi",
-  "Swimming Pool": "waves",
-  "Gym": "dumbbell",
-  "Spa": "sparkles",
-  "Restaurant": "utensils",
-  "Bar": "wine",
-  "Business Center": "briefcase",
-  "Parking": "car",
-  "Airport Shuttle": "plane",
-  "Concierge": "bell",
-  "Room Service": "bell",
-  "Laundry": "shirt",
-  "Power Backup": "zap",
-  "24x7 Security": "shield",
-  "Kitchen": "chef-hat",
-  "Smart TV": "tv",
-  "Minibar": "glass-water",
-};
