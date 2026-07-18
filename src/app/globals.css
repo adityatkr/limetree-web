@@ -2,27 +2,27 @@
 
 @theme {
   /* === BRAND COLORS === */
-  --color-primary: #65a745;
+  --color-primary: #5fb834;
   --color-primary-50: #f0f7ec;
-  --color-primary-100: #d8edd0;
-  --color-primary-200: #b2dba1;
-  --color-primary-300: #8dc872;
-  --color-primary-400: #7ec258;
-  --color-primary-500: #65a745;
-  --color-primary-600: #4f8433;
-  --color-primary-700: #3c6527;
-  --color-primary-800: #2a4a1a;
-  --color-primary-900: #16290d;
+  --color-primary-100: #d8eecf;
+  --color-primary-200: #b1de9d;
+  --color-primary-300: #8ad06a;
+  --color-primary-400: #7ccb4f;
+  --color-primary-500: #5fb834;
+  --color-primary-600: #4b9126;
+  --color-primary-700: #39701c;
+  --color-primary-800: #285113;
+  --color-primary-900: #152c0a;
 
-  --color-accent: #ffcc09;
-  --color-accent-50: #fffde7;
-  --color-accent-100: #fff9c4;
-  --color-accent-200: #fff176;
-  --color-accent-300: #ffd740;
-  --color-accent-400: #ffca28;
-  --color-accent-500: #ffcc09;
-  --color-accent-600: #ffb300;
-  --color-accent-700: #ff8f00;
+  --color-accent: #fac600;
+  --color-accent-50: #fffce0;
+  --color-accent-100: #fff8b8;
+  --color-accent-200: #ffef66;
+  --color-accent-300: #ffd433;
+  --color-accent-400: #ffc61a;
+  --color-accent-500: #fac600;
+  --color-accent-600: #e6a100;
+  --color-accent-700: #c26d00;
 
   --color-cream: #fafaf8;
   --color-cream-50: #fdfdfb;
@@ -68,8 +68,8 @@
   --shadow-elevated: 0 8px 40px -8px rgba(0, 0, 0, 0.12);
   --shadow-luxury: 0 16px 64px -12px rgba(0, 0, 0, 0.16);
   --shadow-float: 0 32px 80px -16px rgba(0, 0, 0, 0.22);
-  --shadow-primary: 0 8px 32px -4px rgba(101, 167, 69, 0.32);
-  --shadow-glow: 0 0 40px rgba(101, 167, 69, 0.2);
+  --shadow-primary: 0 8px 32px -4px rgba(95, 184, 52, 0.32);
+  --shadow-glow: 0 0 40px rgba(95, 184, 52, 0.2);
 
   /* === TRANSITIONS === */
   --ease-luxury: cubic-bezier(0.4, 0, 0.2, 1);
@@ -77,8 +77,8 @@
   --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
   /* === GRADIENTS === */
-  --gradient-primary: linear-gradient(135deg, #65a745 0%, #4f8433 100%);
-  --gradient-accent: linear-gradient(135deg, #ffcc09 0%, #ffb300 100%);
+  --gradient-primary: linear-gradient(135deg, #5fb834 0%, #4b9126 100%);
+  --gradient-accent: linear-gradient(135deg, #fac600 0%, #e6a100 100%);
   --gradient-hero: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.55) 100%);
   --gradient-card: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.8) 100%);
   --gradient-luxury: linear-gradient(135deg, #1d1d1d 0%, #3c3c3c 100%);
@@ -143,12 +143,12 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #65a745;
+  background: #5fb834;
 }
 
 /* === SELECTION === */
 ::selection {
-  background: rgba(101, 167, 69, 0.2);
+  background: rgba(95, 184, 52, 0.2);
   color: var(--color-dark);
 }
 
@@ -277,7 +277,7 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 50%;
   background: var(--color-primary);
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(101, 167, 69, 0.4);
+  box-shadow: 0 2px 6px rgba(95, 184, 52, 0.4);
 }
 
 /* === STICKY BOOKING CARD === */
