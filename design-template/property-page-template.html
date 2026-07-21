@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lime Tree Hotels — Property Page Template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-50: #f0f7ec; --primary-100: #d8eecf; --primary-200: #b1de9d; --primary-300: #8ad06a;
+    --primary-400: #7ccb4f; --primary-500: #5fb834; --primary-600: #4b9126; --primary-700: #39701c;
+    --primary-800: #285113; --primary-900: #152c0a;
+    --accent-50: #fffce0; --accent-100: #fff8b8; --accent-200: #ffef66; --accent-300: #ffd433;
+    --accent-400: #ffc61a; --accent-500: #fac600; --accent-600: #e6a100; --accent-700: #c26d00;
+    --stone-50: #fafaf9; --stone-100: #f5f5f4; --stone-200: #e7e5e4; --stone-400: #a8a29e;
+    --stone-500: #78716c; --stone-600: #57534e; --stone-800: #292524; --stone-900: #1c1917;
+    --success: #4caf50; --error: #e53935;
+    --shadow-card: 0 4px 24px -4px rgba(0,0,0,0.08);
+    --shadow-elevated: 0 8px 40px -8px rgba(0,0,0,0.12);
+    --shadow-primary: 0 8px 32px -4px rgba(95,184,52,0.32);
+    --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+    --font-sans: "Plus Jakarta Sans", -apple-system, "Segoe UI", sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; scroll-behavior: smooth; }
+  body { font-family: var(--font-sans); background: var(--stone-50); color: var(--stone-900); line-height: 1.6; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; background: none; border: none; color: inherit; }
+  :focus-visible { outline: 2px solid var(--primary-500); outline-offset: 2px; border-radius: 4px; }
+  h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+  .eyebrow { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--primary-600); margin-bottom: .5rem; }
+
+  /* ===== navbar ===== */
+  .navbar { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.97); backdrop-filter: blur(8px); border-bottom: 1px solid var(--stone-100); }
+  .navbar-inner { display: flex; align-items: center; justify-content: space-between; height: 4rem; }
+  .navbar-logo { font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; color: var(--stone-900); }
+  .navbar-logo span { color: var(--primary-600); }
+  .navbar-links { display: none; align-items: center; gap: 0.125rem; }
+  @media (min-width: 1024px) { .navbar-links { display: flex; } }
+  .navbar-links a { padding: 0.5rem 0.75rem; border-radius: 0.5rem; font-size: 13px; font-weight: 500; color: var(--stone-600); transition: color .15s; }
+  .navbar-links a:hover, .navbar-links a.current { color: var(--primary-600); }
+  .navbar-actions { display: none; align-items: center; gap: 0.75rem; }
+  @media (min-width: 1024px) { .navbar-actions { display: flex; } }
+  .navbar-phone { display: flex; align-items: center; gap: 0.375rem; font-size: 12px; color: var(--stone-500); }
+  .btn-whatsapp { display: flex; align-items: center; gap: 0.375rem; padding: 0.5rem 0.875rem; background: #25D366; color: #fff; font-size: 13px; font-weight: 600; border-radius: 0.75rem; transition: background .15s; }
+  .btn-whatsapp:hover { background: #20b85a; }
+  .navbar-toggle { display: flex; padding: 0.5rem; border-radius: 0.5rem; }
+  @media (min-width: 1024px) { .navbar-toggle { display: none; } }
+
+  /* ===== buttons ===== */
+  .btn-book {
+    display: inline-flex; align-items: center; justify-content: center; gap: .4rem;
+    padding: 0.7rem 1.4rem; background: var(--primary-500); color: #fff; font-size: 14px;
+    font-weight: 700; border-radius: 0.9rem; box-shadow: var(--shadow-primary); transition: background .15s, transform .15s;
+  }
+  .btn-book:hover { background: var(--primary-600); transform: translateY(-1px); }
+  .btn-book.block { width: 100%; padding: 0.9rem 1.4rem; }
+  .btn-outline {
+    display: inline-flex; align-items: center; justify-content: center; gap: .4rem;
+    padding: 0.7rem 1.4rem; background: #fff; color: var(--stone-800); font-size: 14px; font-weight: 700;
+    border: 1px solid var(--stone-200); border-radius: 0.9rem; transition: background .15s;
+  }
+  .btn-outline:hover { background: var(--stone-50); }
+
+  /* ===== icons (inline svg) ===== */
+  .icon { display: inline-block; vertical-align: -2px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ===== gallery ===== */
+  .gallery { position: relative; background: var(--stone-900); }
+  .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; height: 62vh; max-height: 560px; padding: 0.5rem; }
+  .gallery-hero { grid-column: span 4; position: relative; border-radius: 1rem; overflow: hidden; }
+  @media (min-width: 768px) { .gallery-hero { grid-column: span 2; } }
+  .gallery-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .gallery-thumbs { display: none; grid-column: span 2; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 0.5rem; }
+  @media (min-width: 768px) { .gallery-thumbs { display: grid; } }
+  .gallery-thumb { position: relative; border-radius: 1rem; overflow: hidden; }
+  .gallery-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+  .gallery-thumb:hover img, .gallery-hero:hover img { transform: scale(1.04); }
+  .gallery-more { position: absolute; bottom: .75rem; right: .75rem; background: rgba(0,0,0,.55); color: #fff; font-size: 12px; font-weight: 700; padding: .4rem .8rem; border-radius: .6rem; backdrop-filter: blur(4px); }
+
+  /* ===== content layout ===== */
+  .content { padding: 2.5rem 0 4rem; }
+  .content-cols { display: flex; flex-direction: column; gap: 2rem; }
+  @media (min-width: 1024px) { .content-cols { flex-direction: row; } }
+  .content-main { flex: 1; min-width: 0; }
+
+  .stars-row { display: flex; align-items: center; gap: .5rem; margin-bottom: .75rem; }
+  .badge { font-size: 11px; font-weight: 700; padding: .3rem .7rem; border-radius: 999px; }
+  .badge-accent { background: var(--accent-500); color: var(--stone-900); }
+  .badge-primary { background: var(--primary-500); color: #fff; }
+  .star-solid { color: var(--accent-500); letter-spacing: 1px; }
+
+  .property-name { font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--stone-900); margin-bottom: .6rem; }
+  .property-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-bottom: .9rem; }
+  .property-location { display: flex; align-items: center; gap: 0.375rem; color: var(--stone-500); font-size: 14px; }
+  .star-rating { display: flex; align-items: center; gap: 0.3rem; font-size: 14px; }
+  .star-rating .rating-value { font-weight: 700; color: var(--stone-900); }
+  .star-rating .review-count { color: var(--stone-500); }
+
+  .highlights-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; margin-bottom: 1.5rem; }
+  .pill { font-size: 12px; background: var(--primary-50); color: var(--primary-700); padding: 0.3rem 0.75rem; border-radius: 999px; font-weight: 600; }
+
+  /* ===== tabs ===== */
+  .tabs { display: flex; gap: 0.25rem; margin: 0 0 1.75rem; overflow-x: auto; border-bottom: 1px solid var(--stone-200); }
+  .tab-btn { padding: 0.7rem 1rem; font-size: 14px; font-weight: 600; white-space: nowrap; border-bottom: 2px solid transparent; color: var(--stone-500); transition: color .15s; }
+  .tab-btn:hover { color: var(--stone-900); }
+  .tab-btn.active { border-color: var(--primary-500); color: var(--primary-600); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .description { color: var(--stone-600); font-size: 15px; line-height: 1.75; margin-bottom: 1.75rem; }
+
+  .amenity-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .9rem 1.5rem; margin-bottom: 1.75rem; }
+  @media (min-width: 640px) { .amenity-grid { grid-template-columns: repeat(3, 1fr); } }
+  .amenity-item { display: flex; align-items: center; gap: .6rem; font-size: 14px; color: var(--stone-700); }
+  .amenity-item .icon { color: var(--primary-500); flex-shrink: 0; }
+
+  .nearby-box { background: #fff; border: 1px solid var(--stone-200); border-radius: 1rem; padding: 1.25rem; }
+  .nearby-box h3 { font-size: 15px; margin-bottom: .75rem; }
+  .nearby-chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .nearby-chip { font-size: 12px; background: var(--stone-50); border: 1px solid var(--stone-200); padding: .35rem .7rem; border-radius: 999px; color: var(--stone-600); }
+
+  /* ===== rooms ===== */
+  .room-card { display: flex; flex-direction: column; gap: 1rem; padding: 1.25rem; border: 1px solid var(--stone-200); border-radius: 1.1rem; margin-bottom: 1rem; background: #fff; transition: border-color .15s, box-shadow .15s; }
+  @media (min-width: 640px) { .room-card { flex-direction: row; align-items: center; } }
+  .room-card.selected { border-color: var(--primary-500); box-shadow: 0 0 0 3px var(--primary-50); }
+  .room-card img { width: 100%; height: 140px; object-fit: cover; border-radius: .75rem; }
+  @media (min-width: 640px) { .room-card img { width: 180px; flex-shrink: 0; } }
+  .room-info { flex: 1; }
+  .room-info h4 { font-size: 16px; margin-bottom: .3rem; }
+  .room-info p { font-size: 13px; color: var(--stone-500); margin-bottom: .6rem; }
+  .room-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: .5rem; }
+  .room-tag { font-size: 11px; background: var(--stone-50); border: 1px solid var(--stone-200); padding: .2rem .6rem; border-radius: 999px; color: var(--stone-600); }
+  .room-price-col { display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: .5rem; padding-top: .75rem; border-top: 1px solid var(--stone-100); }
+  @media (min-width: 640px) { .room-price-col { flex-direction: column; align-items: flex-end; border-top: none; padding-top: 0; min-width: 130px; } }
+  .room-price { font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--primary-600); }
+  .room-strike { font-size: 12px; color: var(--stone-400); text-decoration: line-through; }
+
+  /* ===== reviews ===== */
+  .review-card { border: 1px solid var(--stone-200); border-radius: 1rem; padding: 1.25rem; margin-bottom: 1rem; background: #fff; }
+  .review-head { display: flex; align-items: center; gap: .75rem; margin-bottom: .6rem; }
+  .avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--primary-100); color: var(--primary-700); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; }
+  .review-name { font-weight: 700; font-size: 14px; }
+  .review-date { font-size: 12px; color: var(--stone-400); }
+  .review-comment { color: var(--stone-600); font-size: 14px; line-height: 1.7; }
+
+  /* ===== policies ===== */
+  .policy-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+  @media (min-width: 640px) { .policy-grid { grid-template-columns: 1fr 1fr; } }
+  .policy-card { padding: 1rem; background: #fff; border-radius: 0.9rem; border: 1px solid var(--stone-200); display: flex; align-items: flex-start; gap: 0.6rem; }
+  .policy-card .icon { color: var(--primary-500); margin-top: 2px; flex-shrink: 0; }
+  .policy-label { font-size: 12px; color: var(--stone-400); font-weight: 600; margin-bottom: 2px; }
+  .policy-value { font-size: 14px; font-weight: 600; }
+
+  /* ===== faqs ===== */
+  .faq-list { display: flex; flex-direction: column; gap: 0.7rem; }
+  .faq-item { background: #fff; border-radius: 0.9rem; border: 1px solid var(--stone-200); overflow: hidden; }
+  .faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.25rem; cursor: pointer; font-size: 14px; font-weight: 600; color: var(--stone-800); list-style: none; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary:hover { color: var(--primary-600); }
+  .faq-item summary .faq-caret { color: var(--stone-400); flex-shrink: 0; transition: transform .2s; }
+  .faq-item[open] summary .faq-caret { transform: rotate(180deg); }
+  .faq-item-answer { padding: 0 1.25rem 1rem; color: var(--stone-500); font-size: 14px; line-height: 1.7; }
+
+  /* ===== location ===== */
+  .address-card { background: #fff; border-radius: 1rem; border: 1px solid var(--stone-200); padding: 1.25rem; margin-bottom: 1.5rem; }
+  .address-card h3 { font-size: 15px; margin-bottom: .6rem; }
+  .map-placeholder { background: var(--stone-100); border-radius: 1rem; height: 15rem; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; color: var(--stone-400); text-align: center; }
+  .map-placeholder .icon { color: var(--primary-500); margin-bottom: .5rem; }
+  .attractions-grid { display: grid; grid-template-columns: 1fr; gap: .6rem; }
+  @media (min-width: 640px) { .attractions-grid { grid-template-columns: 1fr 1fr; } }
+  .attraction-item { display: flex; align-items: center; gap: .5rem; font-size: 13px; color: var(--stone-600); }
+  .attraction-item .icon { color: var(--primary-500); }
+
+  /* ===== booking sidebar ===== */
+  .booking-col { width: 100%; }
+  @media (min-width: 1024px) { .booking-col { width: 340px; flex-shrink: 0; } }
+  .booking-card { position: sticky; top: 5.5rem; background: #fff; border: 1px solid var(--stone-200); border-radius: 1.25rem; padding: 1.5rem; box-shadow: var(--shadow-elevated); }
+  .booking-price { display: flex; align-items: baseline; gap: .5rem; margin-bottom: .2rem; }
+  .booking-price .amount { font-family: var(--font-display); font-weight: 800; font-size: 1.8rem; color: var(--primary-600); }
+  .booking-price .unit { font-size: 13px; color: var(--stone-400); }
+  .booking-orig { display: flex; align-items: center; gap: .6rem; margin-bottom: 1.1rem; }
+  .strike { font-size: 13px; color: var(--stone-400); text-decoration: line-through; }
+  .booking-dates { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-bottom: .9rem; }
+  .date-field { border: 1px solid var(--stone-200); border-radius: .8rem; padding: .6rem .8rem; }
+  .field-label { display: flex; align-items: center; gap: .3rem; font-size: 11px; color: var(--stone-400); font-weight: 600; margin-bottom: .2rem; }
+  .date-field input, .guests-field select { border: none; font: inherit; font-size: 13px; font-weight: 600; width: 100%; background: transparent; color: var(--stone-900); }
+  .guests-field { border: 1px solid var(--stone-200); border-radius: .8rem; padding: .6rem .8rem; margin-bottom: 1.1rem; }
+  .booking-summary { border-top: 1px solid var(--stone-100); padding-top: .9rem; margin-top: 1.1rem; font-size: 13px; }
+  .summary-row { display: flex; justify-content: space-between; margin-bottom: .5rem; color: var(--stone-500); }
+  .summary-row.total { color: var(--stone-900); font-weight: 700; font-size: 15px; border-top: 1px dashed var(--stone-200); padding-top: .6rem; margin-top: .3rem; }
+  .trust-row { display: flex; align-items: center; gap: .5rem; margin-top: 1rem; font-size: 12px; color: var(--stone-500); }
+  .trust-row .icon { color: var(--primary-500); }
+
+  /* ===== footer ===== */
+  .footer { background: var(--stone-900); color: #fff; margin-top: 3rem; }
+  .footer-newsletter { background: var(--primary-600); }
+  .footer-newsletter .wrap { padding: 2.5rem 1.5rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; }
+  .footer-newsletter h3 { color: #fff; font-size: 1.2rem; }
+  .footer-newsletter p { color: rgba(255,255,255,.8); font-size: 14px; margin-top: .3rem; }
+  .footer-main { padding: 3.5rem 1.5rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  @media (min-width: 768px) { .footer-main { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 1024px) { .footer-main { grid-template-columns: 2fr repeat(4, 1fr); } }
+  .footer-col h4 { font-weight: 700; font-size: 14px; margin-bottom: 1rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.625rem; }
+  .footer-col a { color: rgba(255,255,255,.5); font-size: 14px; transition: color .15s; }
+  .footer-col a:hover { color: #fff; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,.08); padding: 1.25rem 1.5rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; }
+  .footer-bottom p { color: rgba(255,255,255,.3); font-size: 12px; }
+  .footer-bottom-links { display: flex; gap: 1rem; }
+  .footer-bottom-links a { color: rgba(255,255,255,.3); font-size: 12px; }
+  .footer-bottom-links a:hover { color: rgba(255,255,255,.6); }
+</style>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<header class="navbar">
+  <div class="wrap navbar-inner">
+    <a href="#" class="navbar-logo">Lime <span>Tree</span> Hotels</a>
+    <nav class="navbar-links">
+      <a href="#">Properties</a>
+      <a href="#">Destinations</a>
+      <a href="#">Offers</a>
+      <a href="#">Corporate</a>
+      <a href="#">About Us</a>
+      <a href="#">Blog</a>
+      <a href="#">More</a>
+    </nav>
+    <div class="navbar-actions">
+      <a href="tel:+917479000111" class="navbar-phone">
+        <svg class="icon" width="13" height="13" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        +91 74790 00111
+      </a>
+      <a href="#" class="btn-whatsapp">
+        <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0 0 12.05 0z"/></svg>
+        WhatsApp
+      </a>
+      <a href="#" class="btn-book">Book Now</a>
+    </div>
+    <button class="navbar-toggle" aria-label="Toggle menu">
+      <svg class="icon" width="22" height="22" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ============ GALLERY ============ -->
+<div class="gallery">
+  <div class="gallery-grid">
+    <div class="gallery-hero">
+      <img src="https://assets.simplotel.com/simplotel/image/upload/q_80,w_1200,dpr_1,f_auto,fl_progressive,c_limit/lime-tree-hotels-on-golf-course-extension-road-gurgaon/Lime_Tree_Hotel_Golf_Course_Extension_Road_Gurgaon-_Facade_d4rspw" alt="Lime Tree Hotels — Facade">
+      <div class="gallery-more">+18 photos</div>
+    </div>
+    <div class="gallery-thumbs">
+      <div class="gallery-thumb"><img src="https://assets.simplotel.com/simplotel/image/upload/q_80,w_600,dpr_1,f_auto,fl_progressive,c_limit/lime-tree-hotels-on-golf-course-extension-road-gurgaon/Lime_Tree_Hotel_Golf_Course_Extension_Road_Gurgaon-_Room_khtpwz" alt="Deluxe Room"></div>
+      <div class="gallery-thumb"><img src="https://assets.simplotel.com/simplotel/image/upload/q_80,w_600,dpr_1,f_auto,fl_progressive,c_limit/lime-tree-two-bhk-service-apartment-golf-course-road-gurgaon/LT-Manesar-6_nf9ile" alt="Living Room"></div>
+      <div class="gallery-thumb"><img src="https://assets.simplotel.com/simplotel/image/upload/q_80,w_600,dpr_1,f_auto,fl_progressive,c_limit/lime-tree-3bhk-serviced-apartments-dlf-phase---5-gurgaon/DSC01875_xqheud" alt="Bedroom"></div>
+      <div class="gallery-thumb"><img src="https://assets.simplotel.com/simplotel/image/upload/q_80,w_600,dpr_1,f_auto,fl_progressive,c_limit/lime-tree-hotel-one-bhk-serviced-apartment---noida-sector-50-metro/5_ih0fjv" alt="Kitchenette"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MAIN CONTENT ============ -->
+<div class="wrap content">
+  <div class="content-cols">
+    <div class="content-main">
+
+      <div class="stars-row">
+        <span class="star-solid">★★★★</span>
+        <span class="badge badge-accent">Featured</span>
+      </div>
+      <h1 class="property-name">Lime Tree Hotels on Golf Course Extension Road</h1>
+      <div class="property-meta">
+        <div class="property-location">
+          <svg class="icon" width="15" height="15" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Golf Course Extension Road, Sushant Lok-III, Gurugram
+        </div>
+        <div class="star-rating">
+          <span class="star-solid">★★★★<span style="color:var(--stone-200)">★</span></span>
+          <span class="rating-value">4.5</span>
+          <span class="review-count">(521 reviews)</span>
+        </div>
+      </div>
+      <div class="highlights-row">
+        <span class="pill">Premium Corridor</span>
+        <span class="pill">Apartment-style Layout</span>
+        <span class="pill">City-view Balcony</span>
+        <span class="pill">Express Check-in</span>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="overview">Overview</button>
+        <button class="tab-btn" data-tab="rooms">Rooms</button>
+        <button class="tab-btn" data-tab="amenities">Amenities</button>
+        <button class="tab-btn" data-tab="reviews">Reviews (521)</button>
+        <button class="tab-btn" data-tab="location">Location</button>
+        <button class="tab-btn" data-tab="policies">Policies</button>
+        <button class="tab-btn" data-tab="faqs">FAQs</button>
+      </div>
+
+      <!-- Overview -->
+      <div class="tab-panel active" id="tab-overview">
+        <p class="description">In Sushant Lok-III on Golf Course Extension Road, this apartment-style property features three elegant Deluxe Double Rooms with three bathrooms, an open kitchenette, a comfortable living room with sofas and a large-screen TV, and a balcony with brilliant city views — ideal for corporate professionals and families.</p>
+        <div class="amenity-grid">
+          <div class="amenity-item"><svg class="icon" width="16" height="16" viewBox="0 0 24 24"><path d="M5 12.6a12.6 12.6 0 0 1 14 0M8.5 16a7.6 7.6 0 0 1 7 0M12 19.5h.01"/></svg>Free WiFi</div>
+          <div class="amenity-item"><svg class="icon" width="16" height="16" viewBox="0 0 24 24"><path d="M20 8H4v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M20 8a2 2 0 1 0 0-4M4 8V6a2 2 0 0 1 2-2h6"/></svg>Complimentary Breakfast</div>
+          <div class="amenity-item"><svg class="icon" width="16" height="16" viewBox="0 0 24 24"><path d="M4 20V10a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10M2 20h20M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>Open Kitchenette</div>
+          <div class="amenity-item"><svg class="icon" width="16" height="16" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="7" rx="1"/><path d="M5 11V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3M3 18v2M21 18v2"/></svg>Living Room</div>
+          <div class="amenity-item"><svg class="icon" width="16" height="16" viewBox="0 0 24 24"><path d="M18 20V4M6 20V4M18 8H6M18 14H6"/></svg>City-view Balcony</div>
+          <div class="amenity-item"><svg class="icon" width="16" height="16" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Express Check-in</div>
+        </div>
+        <div class="nearby-box">
+          <h3>Nearby Attractions</h3>
+          <div class="nearby-chips">
+            <span class="nearby-chip">📍 Golf Course Extension Road</span>
+            <span class="nearby-chip">📍 Hong Kong Bazaar (5 min)</span>
+            <span class="nearby-chip">📍 Sector 55-56 Rapid Metro (7 min)</span>
+            <span class="nearby-chip">📍 Sohna Road (8 min)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rooms -->
+      <div class="tab-panel" id="tab-rooms">
+        <div class="room-card selected">
+          <img src="https://assets.simplotel.com/simplotel/image/upload/q_80,w_600,dpr_1,f_auto,fl_progressive,c_limit/lime-tree-hotels-on-golf-course-extension-road-gurgaon/Lime_Tree_Hotel_Golf_Course_Extension_Road_Gurgaon-_Room_khtpwz" alt="Deluxe Double Room">
+          <div class="room-info">
+            <h4>Deluxe Double Room</h4>
+            <p>Elegant double room in a three-bedroom layout with shared open kitchenette, living room with sofas and large-screen TV, and a city-view balcony. 30 sq.m · Sleeps 2 · Double bed</p>
+            <div class="room-tags">
+              <span class="room-tag">Free WiFi</span>
+              <span class="room-tag">Smart TV</span>
+              <span class="room-tag">Free cancellation</span>
+              <span class="room-tag">Breakfast included</span>
+            </div>
+          </div>
+          <div class="room-price-col">
+            <div class="room-strike">₹3,500</div>
+            <div class="room-price">₹2,499</div>
+            <button class="btn-book" style="margin-top:.5rem">Book Now</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Amenities -->
+      <div class="tab-panel" id="tab-amenities">
+        <div class="amenity-grid">
+          <div class="amenity-item"><svg class="icon" width="16" height="16" viewBox="0 0 24 24"><path d="M5 12.6a12.6 12.6 0 0 1 14 0M8.5 16a7.6 7.6 0 0 1 7 0M12 19.5h.01"/></svg>Free WiFi</div>
+          <div class="amenity-item"><svg class="icon" width="16" height="16" viewBox="0 0 24 24"><path d="M20 8H4v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M20 8a2 2 0 1 0 0-4M4 8V6a2 2 0 0 1 2-2h6"/></svg>Complimentary Breakfast</div>
+          <div class="amenity-item"><svg class="icon" width="16" height="16" viewBox="0 0 24 24"><path d="M4 20V10a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10M2 20h20M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>Open Kitchenette</div>
+          <div class="amenity-item"><svg class="icon" width="16" height="16" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="7" rx="1"/><path d="M5 11V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3M3 18v2M21 18v2"/></svg>Living Room</div>
+          <div class="amenity-item"><svg class="icon" width="16" height="16" viewBox="0 0 24 24"><path d="M18 20V4M6 20V4M18 8H6M18 14H6"/></svg>City-view Balcony</div>
+          <div class="amenity-item"><svg class="icon" width="16" height="16" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Express Check-in</div>
+          <div class="amenity-item"><svg class="icon" width="16" height="16" viewBox="0 0 24 24"><rect x="1" y="6" width="18" height="12" rx="2"/><path d="M23 13v-2M5 10h6"/></svg>Parking</div>
+          <div class="amenity-item"><svg class="icon" width="16" height="16" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Power Backup</div>
+          <div class="amenity-item"><svg class="icon" width="16" height="16" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>24x7 Front Desk</div>
+          <div class="amenity-item"><svg class="icon" width="16" height="16" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Housekeeping</div>
+        </div>
+      </div>
+
+      <!-- Reviews -->
+      <div class="tab-panel" id="tab-reviews">
+        <div class="review-card">
+          <div class="review-head">
+            <div class="avatar">RK</div>
+            <div>
+              <div class="review-name">Rohit K.</div>
+              <div class="review-date">Verified stay · 2 weeks ago</div>
+            </div>
+          </div>
+          <p class="review-comment">I've been staying at Lime Tree properties every month for my Gurgaon visits. Location is unbeatable, the breakfast is excellent, rooms are well-maintained, and the check-in is always smooth. My top pick in Gurgaon.</p>
+        </div>
+        <div class="review-card">
+          <div class="review-head">
+            <div class="avatar">AS</div>
+            <div>
+              <div class="review-name">Ananya S.</div>
+              <div class="review-date">Verified stay · 1 month ago</div>
+            </div>
+          </div>
+          <p class="review-comment">Loved the apartment-style layout — the kitchenette and living room made it feel like home during a 10-day work trip. Staff were quick to respond on WhatsApp too.</p>
+        </div>
+      </div>
+
+      <!-- Location -->
+      <div class="tab-panel" id="tab-location">
+        <div class="address-card">
+          <h3>Address</h3>
+          <p style="color:var(--stone-600);font-size:14px">First Floor, Building No. EP-2731, Golf Course Ext Rd, Block A, Sushant Lok III, Sector 57, Gurugram</p>
+          <p style="color:var(--stone-400);font-size:14px">Gurgaon, Haryana - 122003</p>
+        </div>
+        <div class="map-placeholder">
+          <div>
+            <svg class="icon" width="32" height="32" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <p style="font-size:14px;font-weight:600;margin-top:8px">Interactive Map</p>
+            <p style="font-size:12px">Google Maps embed goes here</p>
+          </div>
+        </div>
+        <div class="attractions-grid">
+          <div class="attraction-item"><svg class="icon" width="14" height="14" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Golf Course Extension Road</div>
+          <div class="attraction-item"><svg class="icon" width="14" height="14" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Hong Kong Bazaar (5 min)</div>
+          <div class="attraction-item"><svg class="icon" width="14" height="14" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Sector 55-56 Rapid Metro (7 min)</div>
+          <div class="attraction-item"><svg class="icon" width="14" height="14" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Sohna Road (8 min)</div>
+        </div>
+      </div>
+
+      <!-- Policies -->
+      <div class="tab-panel" id="tab-policies">
+        <div class="policy-grid">
+          <div class="policy-card"><svg class="icon" width="15" height="15" viewBox="0 0 24 24"><path d="M12 22s8-4.5 8-11.8A8 8 0 0 0 4 10.2C4 17.5 12 22 12 22z"/></svg><div><div class="policy-label">Check-in Time</div><div class="policy-value">2:00 PM</div></div></div>
+          <div class="policy-card"><svg class="icon" width="15" height="15" viewBox="0 0 24 24"><path d="M12 22s8-4.5 8-11.8A8 8 0 0 0 4 10.2C4 17.5 12 22 12 22z"/></svg><div><div class="policy-label">Check-out Time</div><div class="policy-value">12:00 PM</div></div></div>
+          <div class="policy-card"><svg class="icon" width="15" height="15" viewBox="0 0 24 24"><path d="M12 22s8-4.5 8-11.8A8 8 0 0 0 4 10.2C4 17.5 12 22 12 22z"/></svg><div><div class="policy-label">Cancellation Policy</div><div class="policy-value">Free cancellation until 24 hours before check-in</div></div></div>
+          <div class="policy-card"><svg class="icon" width="15" height="15" viewBox="0 0 24 24"><path d="M12 22s8-4.5 8-11.8A8 8 0 0 0 4 10.2C4 17.5 12 22 12 22z"/></svg><div><div class="policy-label">Pets</div><div class="policy-value">Not allowed</div></div></div>
+          <div class="policy-card"><svg class="icon" width="15" height="15" viewBox="0 0 24 24"><path d="M12 22s8-4.5 8-11.8A8 8 0 0 0 4 10.2C4 17.5 12 22 12 22z"/></svg><div><div class="policy-label">Smoking</div><div class="policy-value">No smoking</div></div></div>
+          <div class="policy-card"><svg class="icon" width="15" height="15" viewBox="0 0 24 24"><path d="M12 22s8-4.5 8-11.8A8 8 0 0 0 4 10.2C4 17.5 12 22 12 22z"/></svg><div><div class="policy-label">Children</div><div class="policy-value">Welcome</div></div></div>
+        </div>
+      </div>
+
+      <!-- FAQs -->
+      <div class="tab-panel" id="tab-faqs">
+        <div class="faq-list">
+          <details class="faq-item" open>
+            <summary>Is it cheaper to book directly on this website?<svg class="icon faq-caret" width="16" height="16" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <p class="faq-item-answer">Yes. Booking direct always gets you our best available rate, plus perks like free cancellation and offers that aren't available on third-party platforms.</p>
+          </details>
+          <details class="faq-item">
+            <summary>What is the check-in and check-out time?<svg class="icon faq-caret" width="16" height="16" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <p class="faq-item-answer">Standard check-in is 2:00 PM and check-out is 12:00 PM (noon). Early check-in and late check-out can be arranged subject to availability.</p>
+          </details>
+          <details class="faq-item">
+            <summary>What ID proof do I need at check-in?<svg class="icon faq-caret" width="16" height="16" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <p class="faq-item-answer">One valid government-issued photo ID per guest — Aadhaar, Passport, Driving License, or Voter ID. International guests must present a passport.</p>
+          </details>
+          <details class="faq-item">
+            <summary>What is the cancellation policy?<svg class="icon faq-caret" width="16" height="16" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <p class="faq-item-answer">Free cancellation up to 24 hours before check-in. Some promotional rates are non-refundable — the exact policy is shown before you confirm your booking.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Is parking and WiFi available?<svg class="icon faq-caret" width="16" height="16" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <p class="faq-item-answer">Yes, complimentary parking and high-speed WiFi are available at this property, along with 24x7 power backup and front desk support.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Do you offer discounted rates for corporate or group bookings?<svg class="icon faq-caret" width="16" height="16" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <p class="faq-item-answer">Yes, corporate accounts and groups of 5+ rooms get special rates, GST-compliant invoicing, and a dedicated coordinator. Reach out to our reservations team.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ BOOKING SIDEBAR ============ -->
+    <div class="booking-col">
+      <div class="booking-card">
+        <div class="booking-price"><span class="amount">₹2,499</span><span class="unit">/night</span></div>
+        <div class="booking-orig"><span class="strike">₹3,500</span><span class="badge badge-accent">29% off</span></div>
+        <div class="star-rating" style="margin-bottom:1.25rem">
+          <span class="star-solid" style="font-size:12px">★★★★<span style="color:var(--stone-200)">★</span></span>
+          <span class="rating-value" style="font-size:13px">4.5</span>
+          <span class="review-count" style="font-size:13px">(521)</span>
+        </div>
+        <div class="booking-dates">
+          <div class="date-field">
+            <div class="field-label"><svg class="icon" width="12" height="12" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Check-in</div>
+            <input type="date">
+          </div>
+          <div class="date-field">
+            <div class="field-label"><svg class="icon" width="12" height="12" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Check-out</div>
+            <input type="date">
+          </div>
+        </div>
+        <div class="guests-field">
+          <div class="field-label"><svg class="icon" width="12" height="12" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Guests</div>
+          <select><option>2 Guests, 1 Room</option><option>1 Guest</option><option>3 Guests</option><option>4 Guests</option></select>
+        </div>
+        <button class="btn-book block">Book Now</button>
+        <div class="booking-summary">
+          <div class="summary-row"><span>₹2,499 × 3 nights</span><span>₹7,497</span></div>
+          <div class="summary-row"><span>Taxes & fees</span><span>₹1,350</span></div>
+          <div class="summary-row total"><span>Total</span><span>₹8,847</span></div>
+        </div>
+        <div class="trust-row"><svg class="icon" width="14" height="14" viewBox="0 0 24 24"><path d="M12 22s8-4.5 8-11.8A8 8 0 0 0 4 10.2C4 17.5 12 22 12 22z"/></svg>Best rate guaranteed when you book direct</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ FAQ SECTION (page-level, matches live site pattern) ============ -->
+<section style="padding:4rem 0;background:#fff;border-top:1px solid var(--stone-100)">
+  <div class="wrap" style="max-width:820px">
+    <div style="text-align:center;margin-bottom:2.5rem">
+      <p class="eyebrow" style="text-align:center">Have Questions?</p>
+      <h2 style="font-size:2rem">Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>Which cities does Lime Tree Hotels operate in?<svg class="icon faq-caret" width="16" height="16" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <p class="faq-item-answer">Lime Tree Hotels operates 30+ properties across Gurgaon, Delhi, Noida, Greater Noida, Jaipur, Goa, and Vrindavan — including hotels, serviced apartments, a private villa, and banquet halls.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How do I get the best rate?<svg class="icon faq-caret" width="16" height="16" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <p class="faq-item-answer">Booking directly through this website always guarantees our best available rate, along with free cancellation on most room types.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer-newsletter">
+    <div class="wrap">
+      <div>
+        <h3>Stay Updated. Stay Rewarded.</h3>
+        <p>Exclusive offers, travel guides, and early access to deals — straight to your inbox.</p>
+      </div>
+      <form style="display:flex;gap:.5rem">
+        <input type="email" placeholder="Your email address" style="padding:.75rem 1rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:.75rem;font-size:14px">
+        <button type="submit" style="padding:.75rem 1.25rem;background:#fff;color:var(--primary-700);font-weight:700;font-size:14px;border-radius:.75rem">Subscribe</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="wrap footer-main">
+    <div class="footer-col" style="grid-column:span 2">
+      <div style="font-family:var(--font-display);font-weight:800;font-size:1.3rem;margin-bottom:1rem">Lime Tree Hotels</div>
+      <p style="color:rgba(255,255,255,.5);font-size:14px;line-height:1.7;margin-bottom:1.25rem;max-width:22rem">Established in 2011, Lime Tree Hotels offers premium hotels, serviced apartments, villas, and banquet halls across 7 Indian cities.</p>
+      <div style="display:flex;flex-direction:column;gap:.6rem;font-size:14px;color:rgba(255,255,255,.6)">
+        <span>+91 74790 00111</span>
+        <span>reservation@limetreehotels.com</span>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Properties</h4>
+      <ul>
+        <li><a href="#">All Hotels</a></li>
+        <li><a href="#">Serviced Apartments</a></li>
+        <li><a href="#">Goa Villa</a></li>
+        <li><a href="#">Corporate Bookings</a></li>
+        <li><a href="#">Medical Stay</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Destinations</h4>
+      <ul>
+        <li><a href="#">Gurgaon</a></li>
+        <li><a href="#">Delhi</a></li>
+        <li><a href="#">Noida</a></li>
+        <li><a href="#">Greater Noida</a></li>
+        <li><a href="#">Jaipur</a></li>
+        <li><a href="#">Goa</a></li>
+        <li><a href="#">Vrindavan</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#">Offers & Deals</a></li>
+        <li><a href="#">Holiday Packages</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Awards</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 Lime Tree Hotels Private Limited. All rights reserved.</p>
+    <div class="footer-bottom-links">
+      <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Sitemap</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll(".tab-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
+      document.querySelectorAll(".tab-panel").forEach((p) => p.classList.remove("active"));
+      btn.classList.add("active");
+      document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
+    });
+  });
+
+  document.querySelector(".navbar-toggle").addEventListener("click", () => {
+    document.querySelector(".navbar-links").style.display =
+      document.querySelector(".navbar-links").style.display === "flex" ? "none" : "flex";
+  });
+</script>
+
+</body>
+</html>
