@@ -200,8 +200,8 @@ export default function HotelCard({ hotel, variant = "default", className }: Hot
               </span>
             )}
           </div>
-          <span className="text-primary-600 text-sm font-medium group-hover:underline">
-            View Details →
+          <span className="bg-primary-500 group-hover:bg-primary-600 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-colors">
+            Book Now
           </span>
         </div>
       </div>

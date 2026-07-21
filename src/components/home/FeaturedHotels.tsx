@@ -102,8 +102,8 @@ export default function FeaturedHotels() {
                     <div className="text-stone-900 font-bold text-base">₹{hotel.pricePerNight.toLocaleString("en-IN")}</div>
                     <div className="text-stone-400 text-[10px]">per night</div>
                   </div>
-                  <div className="text-primary-600 text-xs font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
-                    View Details <ArrowRight size={11} />
+                  <div className="bg-primary-500 group-hover:bg-primary-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors">
+                    Book Now
                   </div>
                 </div>
               </div>
