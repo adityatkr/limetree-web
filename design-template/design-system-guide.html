@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lime Tree Hotels — Design System Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-50: #f0f7ec; --primary-100: #d8eecf; --primary-200: #b1de9d; --primary-300: #8ad06a;
+    --primary-400: #7ccb4f; --primary-500: #5fb834; --primary-600: #4b9126; --primary-700: #39701c;
+    --primary-800: #285113; --primary-900: #152c0a;
+    --accent-50: #fffce0; --accent-100: #fff8b8; --accent-200: #ffef66; --accent-300: #ffd433;
+    --accent-400: #ffc61a; --accent-500: #fac600; --accent-600: #e6a100; --accent-700: #c26d00;
+    --stone-50: #fafaf9; --stone-100: #f5f5f4; --stone-200: #e7e5e4; --stone-300: #d6d3d1;
+    --stone-400: #a8a29e; --stone-500: #78716c; --stone-600: #57534e; --stone-700: #44403c;
+    --stone-800: #292524; --stone-900: #1c1917;
+    --cream: #fafaf8; --cream-100: #f5f5f0; --dark: #1d1d1d; --dark-400: #a0a0a0;
+    --success: #4caf50; --error: #e53935; --warning: #ff9800;
+    --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+    --font-sans: "Plus Jakarta Sans", -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", "Courier New", monospace;
+    --page-bg: #fbfaf8; --panel-bg: #ffffff; --ink: #1c1917; --ink-soft: #6b645d;
+    --rule: #ece7e0; --sidebar-bg: #f6f3ee;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --page-bg: #16140f; --panel-bg: #1e1c17; --ink: #f2efe9; --ink-soft: #a8a096; --rule: #322e26; --sidebar-bg: #1a1813; }
+  }
+  :root[data-theme="dark"] { --page-bg: #16140f; --panel-bg: #1e1c17; --ink: #f2efe9; --ink-soft: #a8a096; --rule: #322e26; --sidebar-bg: #1a1813; }
+  :root[data-theme="light"] { --page-bg: #fbfaf8; --panel-bg: #ffffff; --ink: #1c1917; --ink-soft: #6b645d; --rule: #ece7e0; --sidebar-bg: #f6f3ee; }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-sans); background: var(--page-bg); color: var(--ink); line-height: 1.6; font-size: 15px; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  code, .mono { font-family: var(--font-mono); }
+  h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; text-wrap: balance; color: var(--ink); }
+  ::selection { background: var(--primary-200); }
+
+  .layout { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+  @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } .sidebar { display: none; } }
+
+  .sidebar { background: var(--sidebar-bg); border-right: 1px solid var(--rule); padding: 1.75rem 1.25rem; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+  .sidebar-brand { font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; margin-bottom: .2rem; }
+  .sidebar-brand span { color: var(--primary-600); }
+  .sidebar-sub { font-size: 11px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 1.75rem; }
+  .sidebar nav { display: flex; flex-direction: column; gap: .15rem; }
+  .sidebar nav a { padding: .4rem .6rem; border-radius: 8px; font-size: 13.5px; color: var(--ink-soft); font-weight: 500; transition: background .12s, color .12s; }
+  .sidebar nav a:hover { background: var(--panel-bg); color: var(--ink); }
+
+  .main { padding: 3rem clamp(1.25rem, 4vw, 4rem) 6rem; max-width: 980px; }
+  .intro h1 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); margin-bottom: .6rem; }
+  .intro p { color: var(--ink-soft); font-size: 15.5px; max-width: 62ch; margin-bottom: .5rem; }
+  .intro-meta { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); font-size: 13px; color: var(--ink-soft); }
+  .intro-meta b { color: var(--ink); font-weight: 600; }
+
+  section.block { margin-top: 4rem; scroll-margin-top: 2rem; }
+  .block > .block-head { display: flex; align-items: baseline; gap: .75rem; margin-bottom: .4rem; }
+  .block-num { font-family: var(--font-mono); font-size: 12px; color: var(--primary-600); font-weight: 500; }
+  .block h2 { font-size: 1.5rem; }
+  .block-desc { color: var(--ink-soft); font-size: 14px; max-width: 68ch; margin-bottom: 1.75rem; }
+
+  .panel { background: var(--panel-bg); border: 1px solid var(--rule); border-radius: 16px; padding: 1.5rem; }
+
+  /* swatches */
+  .swatch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(108px, 1fr)); gap: .6rem; }
+  .swatch { border-radius: 10px; overflow: hidden; border: 1px solid var(--rule); }
+  .swatch-fill { height: 56px; }
+  .swatch-label { padding: .45rem .55rem; background: var(--panel-bg); }
+  .swatch-name { font-size: 12px; font-weight: 600; }
+  .swatch-hex { font-family: var(--font-mono); font-size: 11px; color: var(--ink-soft); }
+  .swatch-group-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--ink-soft); margin: 1.5rem 0 .6rem; }
+  .swatch-group-label:first-child { margin-top: 0; }
+
+  /* type samples */
+  .type-row { display: flex; align-items: baseline; gap: 1.5rem; padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+  .type-row:last-child { border-bottom: none; }
+  .type-row .type-meta { width: 130px; flex-shrink: 0; font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-soft); line-height: 1.5; }
+  .type-sample-display { font-family: var(--font-display); font-weight: 700; }
+  .type-sample-sans { font-family: var(--font-sans); }
+  .font-card { display: flex; flex-direction: column; gap: .3rem; padding: 1.25rem; border: 1px solid var(--rule); border-radius: 12px; }
+  .font-card .fname { font-size: 1.4rem; }
+  .font-card .frole { font-size: 12px; color: var(--primary-600); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+  .font-pair-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.75rem; }
+  @media (max-width: 640px) { .font-pair-grid { grid-template-columns: 1fr; } }
+
+  /* tokens table */
+  table.tokens { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  table.tokens th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); padding: .5rem .75rem; border-bottom: 1px solid var(--rule); }
+  table.tokens td { padding: .6rem .75rem; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+  table.tokens tr:last-child td { border-bottom: none; }
+  table.tokens code { background: var(--sidebar-bg); padding: .15rem .4rem; border-radius: 5px; font-size: 12px; }
+  .radius-demo { width: 44px; height: 44px; background: var(--primary-500); flex-shrink: 0; }
+  .shadow-demo { width: 60px; height: 44px; background: var(--panel-bg); border-radius: 10px; flex-shrink: 0; }
+
+  /* component gallery */
+  .demo-row { display: flex; flex-wrap: wrap; align-items: center; gap: .9rem; padding: 1.5rem; background: var(--sidebar-bg); border-radius: 12px; margin-bottom: 1rem; }
+  .demo-row.dark { background: var(--stone-900); }
+  .demo-label { width: 100%; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); margin-bottom: -.3rem; }
+
+  .btn-book { display: inline-flex; align-items: center; gap: .4rem; padding: .7rem 1.4rem; background: var(--primary-500); color: #fff; font-size: 14px; font-weight: 700; border-radius: 14px; box-shadow: 0 8px 32px -4px rgba(95,184,52,.32); }
+  .btn-outline-dark { display: inline-flex; align-items: center; gap: .4rem; padding: .7rem 1.4rem; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #fff; font-size: 14px; font-weight: 700; border-radius: 14px; }
+  .btn-whatsapp { display: inline-flex; align-items: center; gap: .4rem; padding: .65rem 1.1rem; background: #25D366; color: #fff; font-size: 13px; font-weight: 700; border-radius: 12px; }
+  .btn-link { color: var(--primary-600); font-size: 13.5px; font-weight: 600; }
+
+  .badge { display: inline-flex; font-size: 11px; font-weight: 700; padding: .3rem .7rem; border-radius: 999px; }
+  .badge-accent { background: var(--accent-500); color: var(--stone-900); }
+  .badge-primary { background: var(--primary-500); color: #fff; }
+  .badge-new { background: var(--primary-100); color: var(--primary-700); }
+  .pill { font-size: 12px; background: var(--primary-50); color: var(--primary-700); padding: .3rem .75rem; border-radius: 999px; font-weight: 600; }
+
+  .card-demo { width: 260px; border-radius: 16px; overflow: hidden; background: var(--panel-bg); border: 1px solid var(--rule); box-shadow: 0 4px 24px -4px rgba(0,0,0,.08); }
+  .card-demo img { height: 140px; object-fit: cover; }
+  .card-demo .card-body { padding: 1rem 1.1rem 1.1rem; }
+  .card-demo h4 { font-family: var(--font-sans); font-size: 15px; font-weight: 700; margin-bottom: .2rem; }
+  .card-demo .loc { font-size: 12px; color: var(--ink-soft); margin-bottom: .6rem; }
+  .card-demo .price-row { display: flex; align-items: center; justify-content: space-between; padding-top: .7rem; border-top: 1px solid var(--rule); }
+  .card-demo .price { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; color: var(--primary-600); }
+
+  .faq-item { background: var(--panel-bg); border: 1px solid var(--rule); border-radius: 14px; overflow: hidden; margin-bottom: .6rem; }
+  .faq-item summary { padding: .9rem 1.1rem; font-weight: 600; font-size: 13.5px; cursor: pointer; list-style: none; display: flex; justify-content: space-between; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item p { padding: 0 1.1rem 1rem; color: var(--ink-soft); font-size: 13.5px; }
+
+  .tab-demo-btns { display: flex; gap: .2rem; border-bottom: 1px solid var(--rule); margin-bottom: 1rem; }
+  .tab-demo-btns span { padding: .55rem .85rem; font-size: 13px; font-weight: 600; color: var(--ink-soft); border-bottom: 2px solid transparent; }
+  .tab-demo-btns span.active { color: var(--primary-600); border-color: var(--primary-500); }
+
+  /* nav / footer diagrams */
+  .diagram { border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; }
+  .diagram-nav { display: flex; align-items: center; justify-content: space-between; padding: .85rem 1.25rem; background: var(--panel-bg); }
+  .diagram-nav .logo { font-family: var(--font-display); font-weight: 800; font-size: 1rem; }
+  .diagram-nav .links { display: flex; gap: 1rem; font-size: 12.5px; color: var(--ink-soft); font-weight: 500; }
+  .diagram-nav .links b { color: var(--ink); font-weight: 600; }
+  .diagram-foot { background: var(--stone-900); color: #fff; padding: 1.25rem; display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; font-size: 11.5px; }
+  .diagram-foot .col b { display: block; margin-bottom: .4rem; color: #fff; }
+  .diagram-foot .col span { display: block; color: rgba(255,255,255,.45); margin-bottom: .25rem; }
+
+  .kv-list { display: flex; flex-direction: column; gap: .5rem; }
+  .kv-list .kv { display: flex; gap: .75rem; font-size: 13.5px; }
+  .kv-list .kv b { flex-shrink: 0; width: 150px; color: var(--ink-soft); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+
+  .note { border-left: 3px solid var(--accent-500); background: var(--accent-50); border-radius: 0 10px 10px 0; padding: .9rem 1.1rem; font-size: 13.5px; color: var(--stone-800); margin-top: 1rem; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  @media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-brand">Lime <span>Tree</span> Hotels</div>
+    <div class="sidebar-sub">Design System Guide</div>
+    <nav>
+      <a href="#colors">1. Color</a>
+      <a href="#typography">2. Typography</a>
+      <a href="#spacing">3. Spacing &amp; Radius</a>
+      <a href="#shadows">4. Elevation</a>
+      <a href="#buttons">5. Buttons &amp; CTAs</a>
+      <a href="#badges">6. Badges &amp; Pills</a>
+      <a href="#cards">7. Cards</a>
+      <a href="#faq">8. FAQ Accordion</a>
+      <a href="#tabs">9. Tabs</a>
+      <a href="#nav">10. Navigation</a>
+      <a href="#footer">11. Footer</a>
+      <a href="#sections">12. Page Sections</a>
+      <a href="#content">13. Content &amp; Voice</a>
+      <a href="#icons">14. Icons</a>
+      <a href="#files">15. Where Things Live</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="intro">
+      <h1>Design System Guide</h1>
+      <p>Every color, type style, component, and content pattern used across limetreehotels — in one place, so any change to the look of the site can be made consistently. This mirrors the live tokens in <code class="mono">src/app/globals.css</code> exactly; nothing here is aspirational.</p>
+      <div class="intro-meta">
+        <span><b>Fonts:</b> Playfair Display + Plus Jakarta Sans</span>
+        <span><b>Core colors:</b> Green + Gold</span>
+        <span><b>Neutral base:</b> Stone</span>
+        <span><b>Updated:</b> 2026-07-21</span>
+      </div>
+    </div>
+
+    <!-- ============ 1. COLOR ============ -->
+    <section class="block" id="colors">
+      <div class="block-head"><span class="block-num">01</span><h2>Color</h2></div>
+      <p class="block-desc">Two brand colors — a leaf green and a warm gold — carry every call to action, rating star, and accent across the site. Everything else is a neutral "stone" gray. Both brand ramps were deliberately made more saturated/vivid in a recent pass; don't dial them back toward the old muted sage green or pale lemon.</p>
+
+      <div class="panel">
+        <div class="swatch-group-label">Primary — Green (buttons, links, active states)</div>
+        <div class="swatch-grid">
+          <div class="swatch"><div class="swatch-fill" style="background:var(--primary-50)"></div><div class="swatch-label"><div class="swatch-name">50</div><div class="swatch-hex">#f0f7ec</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--primary-100)"></div><div class="swatch-label"><div class="swatch-name">100</div><div class="swatch-hex">#d8eecf</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--primary-200)"></div><div class="swatch-label"><div class="swatch-name">200</div><div class="swatch-hex">#b1de9d</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--primary-300)"></div><div class="swatch-label"><div class="swatch-name">300</div><div class="swatch-hex">#8ad06a</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--primary-400)"></div><div class="swatch-label"><div class="swatch-name">400</div><div class="swatch-hex">#7ccb4f</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--primary-500)"></div><div class="swatch-label"><div class="swatch-name">500 · base</div><div class="swatch-hex">#5fb834</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--primary-600)"></div><div class="swatch-label"><div class="swatch-name">600 · hover</div><div class="swatch-hex">#4b9126</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--primary-700)"></div><div class="swatch-label"><div class="swatch-name">700</div><div class="swatch-hex">#39701c</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--primary-800)"></div><div class="swatch-label"><div class="swatch-name">800</div><div class="swatch-hex">#285113</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--primary-900)"></div><div class="swatch-label"><div class="swatch-name">900</div><div class="swatch-hex">#152c0a</div></div></div>
+        </div>
+
+        <div class="swatch-group-label">Accent — Gold (stars, discount badges, highlights)</div>
+        <div class="swatch-grid">
+          <div class="swatch"><div class="swatch-fill" style="background:var(--accent-50)"></div><div class="swatch-label"><div class="swatch-name">50</div><div class="swatch-hex">#fffce0</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--accent-100)"></div><div class="swatch-label"><div class="swatch-name">100</div><div class="swatch-hex">#fff8b8</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--accent-200)"></div><div class="swatch-label"><div class="swatch-name">200</div><div class="swatch-hex">#ffef66</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--accent-300)"></div><div class="swatch-label"><div class="swatch-name">300</div><div class="swatch-hex">#ffd433</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--accent-400)"></div><div class="swatch-label"><div class="swatch-name">400</div><div class="swatch-hex">#ffc61a</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--accent-500)"></div><div class="swatch-label"><div class="swatch-name">500 · base</div><div class="swatch-hex">#fac600</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--accent-600)"></div><div class="swatch-label"><div class="swatch-name">600</div><div class="swatch-hex">#e6a100</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--accent-700)"></div><div class="swatch-label"><div class="swatch-name">700</div><div class="swatch-hex">#c26d00</div></div></div>
+        </div>
+
+        <div class="swatch-group-label">Stone — Neutrals (text, borders, backgrounds)</div>
+        <div class="swatch-grid">
+          <div class="swatch"><div class="swatch-fill" style="background:var(--stone-50)"></div><div class="swatch-label"><div class="swatch-name">50</div><div class="swatch-hex">#fafaf9</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--stone-100)"></div><div class="swatch-label"><div class="swatch-name">100</div><div class="swatch-hex">#f5f5f4</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--stone-200)"></div><div class="swatch-label"><div class="swatch-name">200</div><div class="swatch-hex">#e7e5e4</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--stone-400)"></div><div class="swatch-label"><div class="swatch-name">400</div><div class="swatch-hex">#a8a29e</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--stone-500)"></div><div class="swatch-label"><div class="swatch-name">500</div><div class="swatch-hex">#78716c</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--stone-600)"></div><div class="swatch-label"><div class="swatch-name">600</div><div class="swatch-hex">#57534e</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--stone-800)"></div><div class="swatch-label"><div class="swatch-name">800</div><div style="color:#ccc" class="swatch-hex">#292524</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--stone-900)"></div><div class="swatch-label"><div class="swatch-name">900 · hero bg</div><div style="color:#ccc" class="swatch-hex">#1c1917</div></div></div>
+        </div>
+
+        <div class="swatch-group-label">Semantic</div>
+        <div class="swatch-grid">
+          <div class="swatch"><div class="swatch-fill" style="background:var(--success)"></div><div class="swatch-label"><div class="swatch-name">Success</div><div class="swatch-hex">#4caf50</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--error)"></div><div class="swatch-label"><div class="swatch-name">Error</div><div class="swatch-hex">#e53935</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:var(--warning)"></div><div class="swatch-label"><div class="swatch-name">Warning</div><div class="swatch-hex">#ff9800</div></div></div>
+          <div class="swatch"><div class="swatch-fill" style="background:#25D366"></div><div class="swatch-label"><div class="swatch-name">WhatsApp</div><div class="swatch-hex">#25D366</div></div></div>
+        </div>
+
+        <div class="note">A handful of older components (<code class="mono">HotelCard.tsx</code>'s horizontal variant, <code class="mono">HotelsClient.tsx</code>) still reference a legacy "cream"/"dark" neutral pair (<code class="mono">#fafaf8</code> / <code class="mono">#1d1d1d</code>) instead of stone. Functionally near-identical — no need to chase it down, but new work should use stone.</div>
+      </div>
+    </section>
+
+    <!-- ============ 2. TYPOGRAPHY ============ -->
+    <section class="block" id="typography">
+      <div class="block-head"><span class="block-num">02</span><h2>Typography</h2></div>
+      <p class="block-desc">One display serif for anything that needs presence, one grotesque sans for everything you read. Never introduce a third typeface.</p>
+
+      <div class="font-pair-grid">
+        <div class="font-card">
+          <div class="frole">Display · Headings</div>
+          <div class="fname" style="font-family:var(--font-display)">Playfair Display</div>
+          <div style="color:var(--ink-soft);font-size:13px">Weights used: 700 (default), 800–900 (hero/large numerals). Serif, high-contrast strokes — used only for h1–h4 and price figures, never body copy.</div>
+        </div>
+        <div class="font-card">
+          <div class="frole">Body · UI</div>
+          <div class="fname" style="font-family:var(--font-sans)">Plus Jakarta Sans</div>
+          <div style="color:var(--ink-soft);font-size:13px">Weights used: 400 (body), 500–600 (labels/nav), 700–800 (buttons/badges). Everything that isn't a heading.</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="type-row">
+          <div class="type-meta">H1<br>clamp(2.5rem,5vw,4rem)<br>weight 700–800</div>
+          <div class="type-sample-display" style="font-size:clamp(2rem,4vw,3rem)">Your Home, Wherever You Go.</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">H2<br>1.875–2.25rem<br>weight 700</div>
+          <div class="type-sample-display" style="font-size:1.9rem">Find Your Perfect Space</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">H3<br>1.25rem<br>weight 700</div>
+          <div class="type-sample-display" style="font-size:1.25rem">Everything You Need, Built Right In</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">Eyebrow label<br>11–12px, uppercase<br>letter-spacing .08em, primary-600</div>
+          <div class="type-sample-sans" style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--primary-600)">Serviced Apartments</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">Body<br>14–15px<br>weight 400, stone-500/600</div>
+          <div class="type-sample-sans" style="max-width:46ch;color:var(--ink-soft)">Fully furnished serviced apartments — Studio, 1BHK, 2BHK, 3BHK — with kitchen, WiFi, and housekeeping included.</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">Price figure<br>1.25–2rem<br>Display font, primary-600</div>
+          <div class="type-sample-display" style="font-size:1.6rem;color:var(--primary-600)">₹2,499<span style="font-family:var(--font-sans);font-weight:500;font-size:.6em;color:var(--ink-soft)">/night</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3. SPACING & RADIUS ============ -->
+    <section class="block" id="spacing">
+      <div class="block-head"><span class="block-num">03</span><h2>Spacing &amp; Radius</h2></div>
+      <p class="block-desc">Sections use generous vertical rhythm (5rem top/bottom); cards and buttons are consistently rounded — nothing on the site uses sharp corners.</p>
+      <div class="panel">
+        <table class="tokens">
+          <thead><tr><th>Token</th><th>Value</th><th>Used for</th><th></th></tr></thead>
+          <tbody>
+            <tr><td><code>--radius-xs</code></td><td class="mono">4px</td><td>Focus ring corners</td><td><div class="radius-demo" style="border-radius:4px"></div></td></tr>
+            <tr><td><code>--radius-sm</code></td><td class="mono">8px</td><td>Small chips, pills</td><td><div class="radius-demo" style="border-radius:8px"></div></td></tr>
+            <tr><td><code>--radius</code></td><td class="mono">12px</td><td>Inputs, small cards</td><td><div class="radius-demo" style="border-radius:12px"></div></td></tr>
+            <tr><td><code>--radius-md</code></td><td class="mono">16px</td><td>Buttons, standard cards</td><td><div class="radius-demo" style="border-radius:16px"></div></td></tr>
+            <tr><td><code>--radius-lg</code></td><td class="mono">20px</td><td>Feature cards</td><td><div class="radius-demo" style="border-radius:20px"></div></td></tr>
+            <tr><td><code>--radius-xl</code></td><td class="mono">24px</td><td>Large panels, hero CTAs</td><td><div class="radius-demo" style="border-radius:24px"></div></td></tr>
+            <tr><td><code>--radius-2xl</code></td><td class="mono">32px</td><td>Section-level containers</td><td><div class="radius-demo" style="border-radius:32px"></div></td></tr>
+            <tr><td><code>--radius-full</code></td><td class="mono">9999px</td><td>Badges, avatars, pills</td><td><div class="radius-demo" style="border-radius:9999px"></div></td></tr>
+          </tbody>
+        </table>
+        <div class="note">Section padding: <code class="mono">py-20</code> (5rem) top/bottom is the default for any full-width page section. Page container: <code class="mono">max-w-7xl mx-auto px-4 sm:px-6 lg:px-8</code>.</div>
+      </div>
+    </section>
+
+    <!-- ============ 4. SHADOWS ============ -->
+    <section class="block" id="shadows">
+      <div class="block-head"><span class="block-num">04</span><h2>Elevation</h2></div>
+      <p class="block-desc">Soft, low-contrast shadows only — nothing harsh or directional. The "primary" shadow is a tinted glow used specifically under green CTAs.</p>
+      <div class="panel">
+        <table class="tokens">
+          <thead><tr><th>Token</th><th>Value</th><th>Used for</th><th></th></tr></thead>
+          <tbody>
+            <tr><td><code>--shadow-xs</code></td><td class="mono">0 1px 3px rgba(0,0,0,.06)</td><td>Subtle borders</td><td><div class="shadow-demo" style="box-shadow:0 1px 3px rgba(0,0,0,.06)"></div></td></tr>
+            <tr><td><code>--shadow-card</code></td><td class="mono">0 4px 24px -4px rgba(0,0,0,.08)</td><td>Property cards</td><td><div class="shadow-demo" style="box-shadow:0 4px 24px -4px rgba(0,0,0,.08)"></div></td></tr>
+            <tr><td><code>--shadow-elevated</code></td><td class="mono">0 8px 40px -8px rgba(0,0,0,.12)</td><td>Card hover, sidebars</td><td><div class="shadow-demo" style="box-shadow:0 8px 40px -8px rgba(0,0,0,.12)"></div></td></tr>
+            <tr><td><code>--shadow-primary</code></td><td class="mono">0 8px 32px -4px rgba(95,184,52,.32)</td><td>Primary buttons</td><td><div class="shadow-demo" style="box-shadow:0 8px 32px -4px rgba(95,184,52,.32)"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============ 5. BUTTONS ============ -->
+    <section class="block" id="buttons">
+      <div class="block-head"><span class="block-num">05</span><h2>Buttons &amp; CTAs</h2></div>
+      <p class="block-desc">Every booking action across the site says <b>"Book Now"</b> — not "View Details," "Reserve," or "Explore." That wording change was made deliberately sitewide.</p>
+      <div class="demo-row">
+        <div class="demo-label">On light backgrounds</div>
+        <button class="btn-book">Book Now →</button>
+        <button class="btn-whatsapp">WhatsApp Us</button>
+        <span class="btn-link">View All FAQs →</span>
+      </div>
+      <div class="demo-row dark">
+        <div class="demo-label" style="color:rgba(255,255,255,.5)">On dark / hero backgrounds</div>
+        <button class="btn-book">Book Now</button>
+        <button class="btn-outline-dark">Get Monthly Rate</button>
+      </div>
+      <div class="kv-list panel" style="margin-top:1rem">
+        <div class="kv"><b>Primary fill</b><span>primary-500, white text, <code class="mono">shadow-primary</code>, hover → primary-600</span></div>
+        <div class="kv"><b>Outline (dark bg)</b><span>white/10 fill, white/20 border, hover → white/20 fill</span></div>
+        <div class="kv"><b>WhatsApp</b><span>fixed brand green <code class="mono">#25D366</code>, hover <code class="mono">#20b85a</code> — never themed to site primary</span></div>
+        <div class="kv"><b>Text link</b><span>primary-600, semibold, hover underline</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 6. BADGES ============ -->
+    <section class="block" id="badges">
+      <div class="block-head"><span class="block-num">06</span><h2>Badges &amp; Pills</h2></div>
+      <p class="block-desc">Small status markers on cards and section eyebrows.</p>
+      <div class="demo-row">
+        <span class="badge badge-accent">Featured</span>
+        <span class="badge badge-accent">29% off</span>
+        <span class="badge badge-primary">New</span>
+        <span class="badge badge-new">4.8 rating</span>
+        <span class="pill">Cyber City</span>
+        <span class="pill">Golf Course Road</span>
+      </div>
+    </section>
+
+    <!-- ============ 7. CARDS ============ -->
+    <section class="block" id="cards">
+      <div class="block-head"><span class="block-num">07</span><h2>Cards</h2></div>
+      <p class="block-desc">The property card is the most repeated component on the site — hotels grid, serviced apartments (grouped by BHK), destinations, featured strip on the homepage.</p>
+      <div class="demo-row">
+        <div class="card-demo">
+          <img src="https://assets.simplotel.com/simplotel/image/upload/q_80,w_600,dpr_1,f_auto,fl_progressive,c_limit/lime-tree-hotels-on-golf-course-extension-road-gurgaon/Lime_Tree_Hotel_Golf_Course_Extension_Road_Gurgaon-_Facade_d4rspw" alt="">
+          <div class="card-body">
+            <h4>Lime Tree Golf Course Extension</h4>
+            <div class="loc">Golf Course Extension, Gurgaon</div>
+            <div class="price-row">
+              <span class="price">₹2,499</span>
+              <span class="btn-link" style="background:var(--primary-500);color:#fff;padding:.45rem .9rem;border-radius:10px;font-size:12.5px">Book Now</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="kv-list panel">
+        <div class="kv"><b>Structure</b><span>image (aspect 4:3) → badges overlay top-left → rating overlay bottom-left → name/location → amenity chips → price + Book Now</span></div>
+        <div class="kv"><b>Hover</b><span>image scales 1.05–1.1, card lifts -translate-y-1 to -2, shadow deepens</span></div>
+        <div class="kv"><b>Radius</b><span>rounded-2xl (16px) container, images crop to match</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 8. FAQ ACCORDION ============ -->
+    <section class="block" id="faq">
+      <div class="block-head"><span class="block-num">08</span><h2>FAQ Accordion</h2></div>
+      <p class="block-desc">Native <code class="mono">&lt;details&gt;/&lt;summary&gt;</code> — no JS. Appears on the homepage, every property-type page (hotels, serviced apartments), and the dedicated /faq page, always ending in a "Still have questions?" WhatsApp/contact prompt.</p>
+      <details class="faq-item" open>
+        <summary>Is it cheaper to book directly on this website? <span>⌄</span></summary>
+        <p>Yes — booking direct always gets you our best available rate, plus free cancellation.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What is the check-in and check-out time? <span>⌄</span></summary>
+        <p>Standard check-in is 2:00 PM, check-out is 12:00 PM.</p>
+      </details>
+    </section>
+
+    <!-- ============ 9. TABS ============ -->
+    <section class="block" id="tabs">
+      <div class="block-head"><span class="block-num">09</span><h2>Tabs</h2></div>
+      <p class="block-desc">Used on individual property pages: Overview, Rooms, Amenities, Reviews, Location, Policies, FAQs. Active tab gets a primary-colored bottom border.</p>
+      <div class="panel">
+        <div class="tab-demo-btns">
+          <span class="active">Overview</span><span>Rooms</span><span>Amenities</span><span>Reviews (521)</span><span>Location</span><span>Policies</span><span>FAQs</span>
+        </div>
+        <div style="font-size:13.5px;color:var(--ink-soft)">Tab content renders below — one panel visible at a time, toggled by a data-tab attribute.</div>
+      </div>
+    </section>
+
+    <!-- ============ 10. NAVIGATION ============ -->
+    <section class="block" id="nav">
+      <div class="block-head"><span class="block-num">10</span><h2>Navigation</h2></div>
+      <p class="block-desc">Sticky top nav, transparent over the homepage hero until scrolled, solid white everywhere else.</p>
+      <div class="diagram">
+        <div class="diagram-nav">
+          <span class="logo">Lime Tree Hotels</span>
+          <span class="links"><b>Properties ▾</b>Destinations ▾ Offers Corporate About&nbsp;Us Blog More&nbsp;▾</span>
+        </div>
+      </div>
+      <div class="kv-list panel" style="margin-top:1rem">
+        <div class="kv"><b>Order</b><span>Properties (dropdown) → Destinations (dropdown) → Offers → Corporate → About Us → Blog → More (dropdown)</span></div>
+        <div class="kv"><b>Properties dropdown</b><span>All Hotels, Serviced Apartments, Goa Villa, Medical Stay</span></div>
+        <div class="kv"><b>Destinations dropdown</b><span>Gurgaon, Delhi, Noida, Greater Noida, Jaipur, Goa, Vrindavan — this exact order everywhere</span></div>
+        <div class="kv"><b>More dropdown</b><span>Holiday Packages, Medical Tourism, Gallery, Awards, Partner With Us, Contact Us</span></div>
+        <div class="kv"><b>Right side</b><span>Phone number → WhatsApp button (#25D366) → Book Now button (primary-500)</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 11. FOOTER ============ -->
+    <section class="block" id="footer">
+      <div class="block-head"><span class="block-num">11</span><h2>Footer</h2></div>
+      <p class="block-desc">Stone-900 background, five columns: brand/contact, Properties, Destinations, Explore, Company. Newsletter strip in primary-600 sits above it.</p>
+      <div class="diagram">
+        <div class="diagram-foot">
+          <div class="col"><b>Lime Tree Hotels</b><span>Est. 2011 · 30+ properties</span><span>+91 74790 00111</span></div>
+          <div class="col"><b>Properties</b><span>All Hotels</span><span>Serviced Apartments</span><span>Goa Villa</span></div>
+          <div class="col"><b>Destinations</b><span>Gurgaon</span><span>Delhi</span><span>Noida</span><span>Greater Noida</span><span>Jaipur</span><span>Goa</span><span>Vrindavan</span></div>
+          <div class="col"><b>Company</b><span>About Us</span><span>Contact</span><span>FAQ</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 12. PAGE SECTIONS ============ -->
+    <section class="block" id="sections">
+      <div class="block-head"><span class="block-num">12</span><h2>Page Section Patterns</h2></div>
+      <p class="block-desc">Recurring section shapes reused across every landing page (hotels, serviced-apartments, medical-tourism, corporate, homepage).</p>
+      <div class="grid-2">
+        <div class="panel">
+          <div class="swatch-group-label" style="margin-top:0">Hero</div>
+          <div style="font-size:13.5px;color:var(--ink-soft)">stone-900 background photo at 20–30% opacity, white h1 with a primary-400 highlighted phrase, one primary CTA + one outline CTA. Full-bleed, py-28.</div>
+        </div>
+        <div class="panel">
+          <div class="swatch-group-label" style="margin-top:0">Eyebrow + Heading</div>
+          <div style="font-size:13.5px;color:var(--ink-soft)">Centered or left-aligned pair: small uppercase primary-600 label, then a Playfair Display h2 directly beneath. Used to open almost every section.</div>
+        </div>
+        <div class="panel">
+          <div class="swatch-group-label" style="margin-top:0">Alternating background rhythm</div>
+          <div style="font-size:13.5px;color:var(--ink-soft)">Sections alternate <code class="mono">bg-white</code> / <code class="mono">bg-stone-50</code> down the page so adjacent sections stay visually distinct without borders.</div>
+        </div>
+        <div class="panel">
+          <div class="swatch-group-label" style="margin-top:0">"Still have questions?" block</div>
+          <div style="font-size:13.5px;color:var(--ink-soft)">Closes every FAQ section: primary-50 panel, centered heading, Contact Support + WhatsApp Us buttons side by side.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 13. CONTENT & VOICE ============ -->
+    <section class="block" id="content">
+      <div class="block-head"><span class="block-num">13</span><h2>Content &amp; Voice</h2></div>
+      <p class="block-desc">Conventions that keep copy and data consistent as new pages get added.</p>
+      <div class="kv-list panel">
+        <div class="kv"><b>CTA wording</b><span>"Book Now" for anything that leads to booking. "View All FAQs" / "Contact Support" for secondary links. Never "View Details," "Learn More," or "Explore" on a property card.</span></div>
+        <div class="kv"><b>Destination order</b><span>Gurgaon, Delhi, Noida, Greater Noida, Jaipur, Goa, Vrindavan — this exact sequence in nav, footer, homepage, /destinations, and the search widget.</span></div>
+        <div class="kv"><b>Serviced apartment grouping</b><span>Listings group by unit size: 1 BHK → 2 BHK → 3 BHK → Studio → Other (only if something doesn't match).</span></div>
+        <div class="kv"><b>Price display</b><span>Headline price = the cheapest bookable room/unit at that property (shown as "From ₹X/night"), never an average.</span></div>
+        <div class="kv"><b>FAQ tone</b><span>Direct answers, no hedging — "Yes, X is included" rather than "X may be available."</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 14. ICONS ============ -->
+    <section class="block" id="icons">
+      <div class="block-head"><span class="block-num">14</span><h2>Icons</h2></div>
+      <p class="block-desc">In the Next.js app: <code class="mono">lucide-react</code>, stroke-based, sized 11–22px depending on context (11–13px inline with small text, 16–18px for feature icons, 20–22px for nav/menu controls). In standalone HTML templates (no npm access): hand-drawn inline SVG copies of the same lucide paths, same stroke-width of 2.</p>
+    </section>
+
+    <!-- ============ 15. WHERE THINGS LIVE ============ -->
+    <section class="block" id="files">
+      <div class="block-head"><span class="block-num">15</span><h2>Where Things Live</h2></div>
+      <p class="block-desc">For whoever edits this next — the actual source of truth for each piece above.</p>
+      <div class="panel">
+        <table class="tokens">
+          <thead><tr><th>What</th><th>File</th></tr></thead>
+          <tbody>
+            <tr><td>Color / radius / shadow tokens</td><td><code>src/app/globals.css</code></td></tr>
+            <tr><td>Fonts loaded</td><td><code>src/app/layout.tsx</code></td></tr>
+            <tr><td>Navbar structure</td><td><code>src/components/layout/Navbar.tsx</code></td></tr>
+            <tr><td>Footer structure</td><td><code>src/components/layout/Footer.tsx</code></td></tr>
+            <tr><td>Property card component</td><td><code>src/components/ui/HotelCard.tsx</code></td></tr>
+            <tr><td>Reusable FAQ section</td><td><code>src/components/ui/FAQSection.tsx</code></td></tr>
+            <tr><td>All property/pricing data</td><td><code>src/lib/data.ts</code></td></tr>
+            <tr><td>Type definitions</td><td><code>src/lib/types.ts</code></td></tr>
+            <tr><td>Standalone HTML template (this document's sibling)</td><td><code>design-template/property-page-template.html</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+</div>
+</body>
+</html>
