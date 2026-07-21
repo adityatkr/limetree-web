@@ -36,10 +36,11 @@ const SLIDES = [
 const CITIES = [
   { name: "Gurgaon", slug: "gurgaon" },
   { name: "Delhi", slug: "delhi" },
+  { name: "Noida", slug: "noida" },
   { name: "Greater Noida", slug: "greater-noida" },
   { name: "Jaipur", slug: "jaipur" },
-  { name: "Vrindavan", slug: "vrindavan" },
   { name: "Goa", slug: "goa" },
+  { name: "Vrindavan", slug: "vrindavan" },
 ];
 
 export default function Hero() {
@@ -70,7 +71,7 @@ export default function Hero() {
       <div className="relative z-10 h-full flex flex-col">
         <div className="flex-1 flex items-center">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 w-full">
-            <div className={`max-w-3xl mx-auto text-center transition-all duration-700 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+            <div className={`max-w-3xl mx-auto text-center transition-all duration-700 ${loaded ? "opacity-100" : "opacity-0 translate-y-8"}`}>
               {/* Location tag */}
               <div className="flex items-center justify-center gap-2 text-white/70 text-sm font-medium mb-6">
                 <MapPin size={13} className="text-primary-400" />

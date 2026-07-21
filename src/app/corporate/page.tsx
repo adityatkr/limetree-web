@@ -77,11 +77,11 @@ export default function CorporatePage() {
                 {[
                   { city: "Gurgaon", detail: "15+ properties near Cyber City, IFFCO, Golf Course Road" },
                   { city: "Delhi", detail: "South Delhi — Greater Kailash-2, Kailash Colony" },
-                  { city: "Greater Noida", detail: "Near India Expo Mart, Knowledge Park" },
                   { city: "Noida", detail: "Sector 50/72 — IT and tech corridor" },
+                  { city: "Greater Noida", detail: "Near India Expo Mart, Knowledge Park" },
                   { city: "Jaipur", detail: "City centre with banquet facilities" },
-                  { city: "Vrindavan", detail: "Government delegation stays" },
                   { city: "Goa", detail: "4BHK private villa for team offsites" },
+                  { city: "Vrindavan", detail: "Government delegation stays" },
                 ].map(({ city, detail }) => (
                   <div key={city} className="flex items-start gap-3">
                     <CheckCircle2 size={14} className="text-primary-500 flex-shrink-0 mt-0.5" />

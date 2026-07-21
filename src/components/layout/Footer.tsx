@@ -28,10 +28,11 @@ const FOOTER_COLS = [
     links: [
       { label: "Gurgaon", href: "/destinations/gurgaon" },
       { label: "Delhi", href: "/destinations/delhi" },
+      { label: "Noida", href: "/destinations/noida" },
       { label: "Greater Noida", href: "/destinations/greater-noida" },
       { label: "Jaipur", href: "/destinations/jaipur" },
-      { label: "Vrindavan", href: "/destinations/vrindavan" },
       { label: "Goa", href: "/destinations/goa" },
+      { label: "Vrindavan", href: "/destinations/vrindavan" },
     ],
   },
   {

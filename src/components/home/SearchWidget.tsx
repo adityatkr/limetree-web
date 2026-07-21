@@ -7,7 +7,7 @@ import { format, addDays } from "date-fns";
 import { cn } from "@/lib/utils";
 
 const DESTINATIONS = [
-  "Gurgaon", "Delhi", "Greater Noida", "Noida", "Jaipur", "Vrindavan", "Goa",
+  "Gurgaon", "Delhi", "Noida", "Greater Noida", "Jaipur", "Goa", "Vrindavan",
 ];
 
 interface WidgetState {
