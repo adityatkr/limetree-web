@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
+import { pageMetadata, breadcrumbSchema } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import { Phone, Mail, MessageCircle, MapPin, ArrowRight } from "lucide-react";
 import { PHONE_NUMBER, EMAIL, WHATSAPP_URL, HQ_ADDRESS } from "@/lib/utils";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contact Us | Lime Tree Hotels",
   description: "Contact Lime Tree Hotels for reservations, corporate inquiries, medical stay assistance, banquet bookings, or general support. Available 24x7.",
-};
+  path: "/contact",
+});
 
 const PROPERTY_CONTACTS = [
   { name: "Head Office / Reservations", location: "Gurgaon", phone: "+91 74790 00111", email: "reservation@limetreehotels.com" },
@@ -30,6 +33,7 @@ const ENQUIRY_TYPES = [
 export default function ContactPage() {
   return (
     <div className="min-h-screen bg-stone-50 pt-16">
+      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Contact Us", path: "/contact" }])} />
       {/* Hero */}
       <section className="bg-stone-900 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

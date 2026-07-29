@@ -1,18 +1,22 @@
 import type { Metadata } from "next";
+import { pageMetadata, breadcrumbSchema } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Clock, MapPin, CheckCircle2 } from "lucide-react";
 import { HOLIDAY_PACKAGES } from "@/lib/data";
 import { WHATSAPP_URL } from "@/lib/utils";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Holiday Packages | Manali, Rishikesh, Golden Triangle — Lime Tree Hotels",
   description: "Curated holiday packages from Lime Tree Hotels — Manali Escape (4 days), Rishikesh Serenity (3 nights), Golden Triangle (6 nights). All-inclusive, handpicked stays.",
-};
+  path: "/holiday-packages",
+});
 
 export default function HolidayPackagesPage() {
   return (
     <div className="min-h-screen bg-stone-50 pt-16">
+      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Holiday Packages", path: "/holiday-packages" }])} />
       {/* Hero */}
       <section className="bg-stone-900 py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata, breadcrumbSchema } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Gallery | Lime Tree Hotels — Properties Across India",
   description: "Browse photos of Lime Tree Hotels across Gurgaon, Delhi, Greater Noida, Noida, Jaipur, Vrindavan, and Goa — hotels, serviced apartments, villas and banquet halls.",
-};
+  path: "/gallery",
+});
 
 const GALLERY_ITEMS = [
   { src: "https://assets.simplotel.com/simplotel/image/upload/w_5000,h_3333/x_234,y_0,w_4532,h_3333,r_0,c_crop/q_80,w_800,dpr_1,f_auto,fl_progressive,c_limit/lime-tree-hotel-sushant-lok-gurgaon---next-to-iffco-chowk-metro-station/DSC09899_ozpuez", alt: "Lime Tree Hotel IFFCO Chowk", tag: "Hotel", span: "col-span-2 row-span-2" },
@@ -28,6 +31,7 @@ const CATEGORIES = ["All", "Hotel", "Rooms", "Apartments", "Villa", "Dining", "A
 export default function GalleryPage() {
   return (
     <div className="min-h-screen bg-stone-50 pt-16">
+      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Gallery", path: "/gallery" }])} />
       {/* Hero */}
       <section className="bg-stone-900 py-20">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

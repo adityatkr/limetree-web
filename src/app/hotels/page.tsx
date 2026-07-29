@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata, breadcrumbSchema } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import HotelsClient from "./HotelsClient";
 import FAQSection from "@/components/ui/FAQSection";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Hotels | Browse Premium Hotels Across India",
   description:
     "Search and book premium hotels across Delhi, Gurgaon, Jaipur, Mumbai, Hyderabad, and Bangalore. Best rates guaranteed. Free cancellation available.",
-};
+  path: "/hotels",
+});
 
 const FAQS = [
   { q: "Is it cheaper to book directly on this website?", a: "Yes. Booking direct always gets you our best available rate, plus perks like free cancellation and offers that aren't available on third-party platforms." },
@@ -27,6 +30,7 @@ export default async function HotelsPage({
   const params = await searchParams;
   return (
     <>
+      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Hotels", path: "/hotels" }])} />
       <HotelsClient searchParams={params} />
       <FAQSection
         eyebrow="Have Questions?"

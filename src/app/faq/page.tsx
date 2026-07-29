@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { WHATSAPP_URL } from "@/lib/utils";
+import JsonLd from "@/components/seo/JsonLd";
+import { pageMetadata, faqPageSchema, breadcrumbSchema } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "FAQ | Frequently Asked Questions — Lime Tree Hotels",
   description: "Find answers to common questions about booking, cancellation, check-in, amenities, corporate rates, and more at Lime Tree Hotels.",
-};
+  path: "/faq",
+});
 
 const FAQ_SECTIONS = [
   {
@@ -78,21 +81,14 @@ export default function FAQPage() {
       <section className="py-16 bg-stone-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Schema.org FAQ */}
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "FAQPage",
-                mainEntity: FAQ_SECTIONS.flatMap((s) =>
-                  s.faqs.map((f) => ({
-                    "@type": "Question",
-                    name: f.q,
-                    acceptedAnswer: { "@type": "Answer", text: f.a },
-                  }))
-                ),
-              }),
-            }}
+          <JsonLd
+            data={[
+              faqPageSchema(FAQ_SECTIONS.flatMap((s) => s.faqs)),
+              breadcrumbSchema([
+                { name: "Home", path: "/" },
+                { name: "FAQ", path: "/faq" },
+              ]),
+            ]}
           />
 
           <div className="flex flex-col gap-10">

@@ -12,6 +12,8 @@ import Reviews from "@/components/home/Reviews";
 import OffersSection from "@/components/home/OffersSection";
 import AwardsStrip from "@/components/home/AwardsStrip";
 import FAQSection from "@/components/ui/FAQSection";
+import JsonLd from "@/components/seo/JsonLd";
+import { pageMetadata, organizationSchema, websiteSchema } from "@/lib/seo";
 
 const FAQS = [
   { q: "Is it cheaper to book directly on this website?", a: "Yes. Booking direct always gets you our best available rate, plus perks like free cancellation and offers that aren't available on third-party platforms." },
@@ -22,25 +24,23 @@ const FAQS = [
   { q: "Which cities do you have properties in?", a: "Lime Tree Hotels operates 30+ properties across Gurgaon, Delhi, Jaipur, Greater Noida, Noida, Vrindavan, and Goa — including hotels, serviced apartments, a villa, and banquet halls." },
 ];
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Lime Tree Hotels & Serviced Apartments | Gurgaon, Delhi, Jaipur, Noida, Goa",
   description:
     "Lime Tree Hotels — 12 years, 500+ rooms, 30+ properties across 7 Indian cities. Premium hotels, serviced apartments (Studio to 3BHK), villas, and banquet halls. Medical tourism, corporate stays, holiday packages. Book direct for best rates.",
+  path: "/",
   keywords: ["Lime Tree Hotels", "serviced apartments Gurgaon", "hotel near Medanta", "corporate stay Gurgaon", "holiday packages India"],
-  openGraph: {
-    title: "Lime Tree Hotels & Serviced Apartments — Feel Like Home",
-    description: "12 Years · 500+ Rooms · 30+ Properties · 7 Cities. Hotels, serviced apartments & villas across Gurgaon, Delhi, Jaipur, Greater Noida, Noida, Vrindavan & Goa.",
-    images: [{ url: "https://assets.simplotel.com/simplotel/image/upload/w_5000,h_3333/x_234,y_0,w_4532,h_3333,r_0,c_crop/q_80,w_1200,dpr_1,f_auto,fl_progressive,c_limit/lime-tree-hotel-sushant-lok-gurgaon---next-to-iffco-chowk-metro-station/DSC09899_ozpuez" }],
-  },
-};
+  image: "https://assets.simplotel.com/simplotel/image/upload/w_5000,h_3333/x_234,y_0,w_4532,h_3333,r_0,c_crop/q_80,w_1200,dpr_1,f_auto,fl_progressive,c_limit/lime-tree-hotel-sushant-lok-gurgaon---next-to-iffco-chowk-metro-station/DSC09899_ozpuez",
+});
 
 export default function HomePage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+      <JsonLd
+        data={[
+          organizationSchema(),
+          websiteSchema(),
+          {
             "@context": "https://schema.org",
             "@type": "LodgingBusiness",
             name: "Lime Tree Hotels",
@@ -63,8 +63,8 @@ export default function HomePage() {
               reviewCount: "5000",
               bestRating: "5",
             },
-          }),
-        }}
+          },
+        ]}
       />
 
       <Hero />

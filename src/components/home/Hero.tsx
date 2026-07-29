@@ -121,6 +121,8 @@ export default function Hero() {
           <button
             key={i}
             onClick={() => setCurrent(i)}
+            aria-label={`Go to slide ${i + 1}`}
+            aria-current={i === current}
             className={`w-1 rounded-full transition-all duration-300 ${i === current ? "h-8 bg-white" : "h-1.5 bg-white/30 hover:bg-white/50"}`}
           />
         ))}

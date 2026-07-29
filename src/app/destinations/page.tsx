@@ -1,19 +1,23 @@
 import type { Metadata } from "next";
+import { pageMetadata, breadcrumbSchema } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Building2, ArrowRight } from "lucide-react";
 import { DESTINATIONS } from "@/lib/data";
 import { formatPrice } from "@/lib/utils";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Destinations | Hotels Across India",
   description:
     "Find LimeTree Hotels in Delhi, Gurgaon, Jaipur, Mumbai, Hyderabad, Bangalore, and more. Premium stays in every major Indian city.",
-};
+  path: "/destinations",
+});
 
 export default function DestinationsPage() {
   return (
     <div className="min-h-screen bg-cream pt-16">
+      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Destinations", path: "/destinations" }])} />
       {/* Hero */}
       <section className="bg-dark py-20">
         <div className="container-luxury text-center">

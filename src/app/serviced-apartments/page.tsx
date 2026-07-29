@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { pageMetadata, breadcrumbSchema } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import Image from "next/image";
 import Link from "next/link";
 import { HOTELS } from "@/lib/data";
@@ -6,10 +8,11 @@ import HotelCard from "@/components/ui/HotelCard";
 import FAQSection from "@/components/ui/FAQSection";
 import { ChefHat, Sofa, Shirt, Monitor, Clock, CheckCircle2, ArrowRight } from "lucide-react";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Serviced Apartments | Studio to 3BHK in Gurgaon & Delhi — Lime Tree Hotels",
   description: "Fully furnished serviced apartments in Gurgaon and Delhi — Studio, 1BHK, 2BHK, 3BHK options. Kitchen, WiFi, housekeeping, power backup. Weekly & monthly packages available.",
-};
+  path: "/serviced-apartments",
+});
 
 const APARTMENT_TYPES = [
   {
@@ -94,6 +97,7 @@ const FAQS = [
 export default function ServicedApartmentsPage() {
   return (
     <div className="min-h-screen bg-stone-50 pt-16">
+      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Serviced Apartments", path: "/serviced-apartments" }])} />
       {/* Hero */}
       <section className="relative bg-stone-900 overflow-hidden">
         <Image

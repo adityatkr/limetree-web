@@ -156,7 +156,7 @@ export default function Navbar() {
                 height={57}
                 className="h-8 w-auto object-contain"
               />
-              <button onClick={() => setMobileOpen(false)} className="p-1.5 rounded-lg hover:bg-stone-100"><X size={18} className="text-stone-600" /></button>
+              <button onClick={() => setMobileOpen(false)} aria-label="Close menu" className="p-1.5 rounded-lg hover:bg-stone-100"><X size={18} className="text-stone-600" /></button>
             </div>
             <nav className="py-2">
               {NAV_ITEMS.map((item) => (

@@ -3,12 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { Clock, MapPin, Users, UtensilsCrossed, ArrowRight, Star, ChefHat } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
+import JsonLd from "@/components/seo/JsonLd";
+import { pageMetadata, restaurantSchema, breadcrumbSchema } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Amaya Restaurant | Legacy in Every Flavour",
   description:
     "Experience Amaya — LimeTree's signature restaurant inspired by Jaipur's culinary heritage. Royal Rajasthani flavors meets modern gastronomy. Reserve your table today.",
-};
+  path: "/restaurant",
+});
 
 const MENU_HIGHLIGHTS = [
   { category: "Starters", items: ["Dal Baati Churma Bites", "Rajasthani Mirchi Pakoda", "Ghewar Chaat", "Laal Maas Sliders"] },
@@ -27,6 +30,15 @@ const DINING_EXPERIENCES = [
 export default function RestaurantPage() {
   return (
     <div className="min-h-screen bg-cream pt-16">
+      <JsonLd
+        data={[
+          restaurantSchema(),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Amaya Restaurant", path: "/restaurant" },
+          ]),
+        ]}
+      />
       {/* Cinematic Hero */}
       <section className="relative h-screen max-h-[700px] bg-dark overflow-hidden">
         <Image

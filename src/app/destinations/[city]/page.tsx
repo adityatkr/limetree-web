@@ -5,6 +5,8 @@ import Link from "next/link";
 import { MapPin, Building2, ArrowLeft } from "lucide-react";
 import { DESTINATIONS, HOTELS } from "@/lib/data";
 import HotelCard from "@/components/ui/HotelCard";
+import JsonLd from "@/components/seo/JsonLd";
+import { pageMetadata, breadcrumbSchema, destinationSchema, absoluteUrl } from "@/lib/seo";
 
 interface Props {
   params: Promise<{ city: string }>;
@@ -14,10 +16,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { city } = await params;
   const dest = DESTINATIONS.find((d) => d.slug === city);
   if (!dest) return {};
-  return {
+  return pageMetadata({
     title: `Hotels in ${dest.city} | Lime Tree Hotels`,
     description: dest.description,
-  };
+    path: `/destinations/${dest.slug}`,
+    image: dest.image,
+  });
 }
 
 export async function generateStaticParams() {
@@ -35,6 +39,16 @@ export default async function CityPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-stone-50 pt-16">
+      <JsonLd
+        data={[
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Destinations", path: "/destinations" },
+            { name: dest.city, path: `/destinations/${dest.slug}` },
+          ]),
+          destinationSchema(dest, cityHotels.map((h) => absoluteUrl(`/hotels/${h.slug}`))),
+        ]}
+      />
       {/* Hero */}
       <section className="relative h-[50vh] min-h-80 bg-stone-900 overflow-hidden">
         <Image

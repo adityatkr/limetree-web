@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
+import { pageMetadata, breadcrumbSchema } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import { ArrowRight, CheckCircle2, TrendingUp, Users, Star } from "lucide-react";
 import { PHONE_NUMBER, EMAIL } from "@/lib/utils";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Partner With Us | List Your Property — Lime Tree Hotels",
   description: "List your hotel, apartment, villa, or banquet hall with Lime Tree Hotels. Access our corporate client base, OTA management, revenue optimisation, and marketing support.",
-};
+  path: "/partner-with-us",
+});
 
 const BENEFITS = [
   { icon: TrendingUp, title: "Revenue Optimisation", desc: "Our revenue management team works to maximise your occupancy and ARR through dynamic pricing strategies." },
@@ -24,6 +27,7 @@ const PROPERTY_TYPES = [
 export default function PartnerWithUsPage() {
   return (
     <div className="min-h-screen bg-stone-50 pt-16">
+      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Partner With Us", path: "/partner-with-us" }])} />
       {/* Hero */}
       <section className="bg-stone-900 py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

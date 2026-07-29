@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
+import { pageMetadata, breadcrumbSchema } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import { MapPin, Clock, ArrowRight, Users, Sparkles, TrendingUp, Heart } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Careers | Join the LimeTree Family",
   description: "Build a rewarding career in premium hospitality at LimeTree Hotels. Explore open positions across hotels, apartments, restaurant, and corporate offices.",
-};
+  path: "/careers",
+});
 
 const OPEN_ROLES = [
   { title: "Front Office Manager", dept: "Operations", location: "Gurgaon", type: "Full-time", exp: "5+ years" },
@@ -37,6 +40,7 @@ const DEPT_COLORS: Record<string, string> = {
 export default function CareersPage() {
   return (
     <div className="min-h-screen bg-cream pt-16">
+      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Careers", path: "/careers" }])} />
       {/* Hero */}
       <section className="bg-dark py-24">
         <div className="container-luxury text-center max-w-3xl mx-auto">

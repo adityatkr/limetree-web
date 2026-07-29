@@ -244,6 +244,7 @@ export default function SearchWidget({ compact = false }: { compact?: boolean })
                   <div className="flex items-center gap-3">
                     <button
                       onClick={() => setState((s) => ({ ...s, [key]: Math.max(1, s[key] - 1) }))}
+                      aria-label={`Decrease ${label.toLowerCase()}`}
                       className="w-8 h-8 rounded-lg border border-dark-200 flex items-center justify-center text-dark hover:border-primary-500 hover:text-primary-500 transition-colors"
                     >
                       −
@@ -251,6 +252,7 @@ export default function SearchWidget({ compact = false }: { compact?: boolean })
                     <span className="text-sm font-semibold text-dark w-6 text-center">{state[key]}</span>
                     <button
                       onClick={() => setState((s) => ({ ...s, [key]: s[key] + 1 }))}
+                      aria-label={`Increase ${label.toLowerCase()}`}
                       className="w-8 h-8 rounded-lg border border-dark-200 flex items-center justify-center text-dark hover:border-primary-500 hover:text-primary-500 transition-colors"
                     >
                       +

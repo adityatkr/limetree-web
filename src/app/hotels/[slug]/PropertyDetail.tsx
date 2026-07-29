@@ -121,13 +121,14 @@ export default function PropertyDetail({ hotel }: Props) {
         <div className="absolute top-4 right-4 flex gap-2">
           <button
             onClick={() => setWishlisted((w) => !w)}
+            aria-label={wishlisted ? "Remove from wishlist" : "Add to wishlist"}
             className={`p-2.5 rounded-xl backdrop-blur-sm transition-all ${
               wishlisted ? "bg-error text-white" : "bg-white/80 text-dark hover:bg-white"
             }`}
           >
             <Heart size={18} className={wishlisted ? "fill-current" : ""} />
           </button>
-          <button className="p-2.5 rounded-xl bg-white/80 backdrop-blur-sm text-dark hover:bg-white transition-all">
+          <button aria-label="Share this property" className="p-2.5 rounded-xl bg-white/80 backdrop-blur-sm text-dark hover:bg-white transition-all">
             <Share2 size={18} />
           </button>
         </div>
@@ -144,12 +145,14 @@ export default function PropertyDetail({ hotel }: Props) {
             onClick={() => setLightboxOpen(false)}
           >
             <button
+              aria-label="Close gallery"
               className="absolute top-4 right-4 text-white p-2 hover:bg-white/10 rounded-xl transition-colors"
               onClick={() => setLightboxOpen(false)}
             >
               <X size={24} />
             </button>
             <button
+              aria-label="Previous photo"
               className="absolute left-4 top-1/2 -translate-y-1/2 text-white p-2 hover:bg-white/10 rounded-xl transition-colors"
               onClick={(e) => { e.stopPropagation(); setGalleryIndex((i) => (i - 1 + hotel.images.length) % hotel.images.length); }}
             >
@@ -165,6 +168,7 @@ export default function PropertyDetail({ hotel }: Props) {
               />
             </div>
             <button
+              aria-label="Next photo"
               className="absolute right-4 top-1/2 -translate-y-1/2 text-white p-2 hover:bg-white/10 rounded-xl transition-colors"
               onClick={(e) => { e.stopPropagation(); setGalleryIndex((i) => (i + 1) % hotel.images.length); }}
             >
@@ -521,10 +525,12 @@ export default function PropertyDetail({ hotel }: Props) {
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => setGuests((g) => Math.max(1, g - 1))}
+                      aria-label="Decrease guests"
                       className="w-7 h-7 rounded-lg border border-dark-200 flex items-center justify-center text-dark hover:border-primary-500 transition-colors"
                     >−</button>
                     <button
                       onClick={() => setGuests((g) => g + 1)}
+                      aria-label="Increase guests"
                       className="w-7 h-7 rounded-lg border border-dark-200 flex items-center justify-center text-dark hover:border-primary-500 transition-colors"
                     >+</button>
                   </div>

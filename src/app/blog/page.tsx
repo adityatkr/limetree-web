@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata, breadcrumbSchema } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import Image from "next/image";
 import Link from "next/link";
 import { Clock, ArrowRight, Tag } from "lucide-react";
 import { BLOG_POSTS } from "@/lib/data";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Blog | Travel Guides, Corporate Travel & Hospitality Stories — Lime Tree Hotels",
   description: "Explore Lime Tree's blog for serviced apartment guides, business travel tips, hotel-near-hospital resources, and living in Gurgaon insights.",
-};
+  path: "/blog",
+});
 
 const CATEGORIES = ["All", "Destination Guide", "Business Travel", "Travel Tips", "Long Stay"];
 
@@ -17,6 +20,7 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen bg-stone-50 pt-16">
+      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Blog", path: "/blog" }])} />
       {/* Hero */}
       <section className="bg-stone-900 py-20">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

@@ -34,10 +34,10 @@ export default function Reviews() {
             </h2>
           </div>
           <div className="flex items-center gap-3">
-            <button onClick={() => emblaApi?.scrollPrev()} className="w-9 h-9 rounded-full border border-stone-200 flex items-center justify-center text-stone-500 hover:border-primary-500 hover:text-primary-600 transition-all">
+            <button onClick={() => emblaApi?.scrollPrev()} aria-label="Previous review" className="w-9 h-9 rounded-full border border-stone-200 flex items-center justify-center text-stone-500 hover:border-primary-500 hover:text-primary-600 transition-all">
               <ChevronLeft size={16} />
             </button>
-            <button onClick={() => emblaApi?.scrollNext()} className="w-9 h-9 rounded-full border border-stone-200 flex items-center justify-center text-stone-500 hover:border-primary-500 hover:text-primary-600 transition-all">
+            <button onClick={() => emblaApi?.scrollNext()} aria-label="Next review" className="w-9 h-9 rounded-full border border-stone-200 flex items-center justify-center text-stone-500 hover:border-primary-500 hover:text-primary-600 transition-all">
               <ChevronRight size={16} />
             </button>
           </div>

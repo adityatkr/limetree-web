@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata, breadcrumbSchema } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About Us | Lime Tree Hotels — Our Story Since 2011",
   description: "Lime Tree Hotels was established in 2011 in Gurgaon. Today we operate 30+ properties — hotels, serviced apartments, villas and banquet halls — across 7 Indian cities.",
-};
+  path: "/about",
+});
 
 const TIMELINE = [
   { year: "2011", title: "Founded in Gurgaon", desc: "Lime Tree Hotels began as a hotel sales and marketing consultancy, with a vision to make premium stays accessible across India." },
@@ -27,6 +30,7 @@ const VALUES = [
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-stone-50 pt-16">
+      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "About Us", path: "/about" }])} />
       {/* Hero */}
       <section className="relative bg-stone-900 overflow-hidden">
         <Image

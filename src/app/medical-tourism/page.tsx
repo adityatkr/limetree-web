@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata, breadcrumbSchema } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import Image from "next/image";
 import { ArrowRight, CheckCircle2, Phone, MessageCircle, MapPin } from "lucide-react";
 import { PHONE_NUMBER, WHATSAPP_URL } from "@/lib/utils";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Medical Tourism Stay | Hotel Near Medanta & Artemis — Lime Tree Hotels",
   description: "Stay near Medanta, Artemis, Fortis, and other top Gurgaon hospitals. Wheelchair-friendly rooms, pharmacy assistance, pick-up & drop, attendant accommodation. Use code HEALING15.",
   keywords: ["hotel near Medanta", "hotel near Artemis hospital Gurgaon", "medical tourism accommodation India", "hospital stay Gurgaon"],
-};
+  path: "/medical-tourism",
+});
 
 const HOSPITALS = [
   { name: "Medanta — The Medicity", dist: "0.5 km", specialty: "Cardiac, Oncology, Neurology" },
@@ -28,6 +31,7 @@ const FEATURES = [
 export default function MedicalTourismPage() {
   return (
     <div className="min-h-screen bg-stone-50 pt-16">
+      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Medical Tourism", path: "/medical-tourism" }])} />
       {/* Hero */}
       <section className="relative bg-blue-950 overflow-hidden">
         <Image

@@ -105,6 +105,12 @@ export default function RootLayout({
       lang="en"
       className={`${playfair.variable} ${plusJakarta.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="preconnect" href="https://assets.simplotel.com" />
+        <link rel="dns-prefetch" href="https://assets.simplotel.com" />
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+      </head>
       <body className="min-h-full flex flex-col bg-cream font-sans text-dark">
         <Navbar />
         <main className="flex-1">{children}</main>

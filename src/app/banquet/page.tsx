@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
+import { pageMetadata, breadcrumbSchema } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import Image from "next/image";
 import Link from "next/link";
 import { Users, CheckCircle2, ArrowRight } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Banquet & Events | Weddings, Corporate Events & More",
   description:
     "Host unforgettable weddings, corporate events, and social gatherings at LimeTree's luxury banquet venues. Expert planning, gourmet catering, and AV setup included.",
-};
+  path: "/banquet",
+});
 
 const EVENT_TYPES = [
   { title: "Royal Weddings", icon: "💍", desc: "From intimate ceremonies to grand receptions — every detail crafted to perfection.", img: "https://assets.simplotel.com/simplotel/image/upload/x_0,y_11,w_1448,h_1064,r_0,c_crop/q_80,w_600,dpr_1,f_auto,fl_progressive,c_limit/lime-tree-hotel-banquet-jaipur/Banquet_gkxjry", capacity: "Up to 500" },
@@ -42,6 +45,7 @@ const PACKAGES = [
 export default function BanquetPage() {
   return (
     <div className="min-h-screen bg-cream pt-16">
+      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Banquet & Events", path: "/banquet" }])} />
       {/* Hero */}
       <section className="relative h-[60vh] min-h-96 bg-dark overflow-hidden">
         <Image

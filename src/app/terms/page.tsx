@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
+import { pageMetadata, breadcrumbSchema } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import Link from "next/link";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Terms & Conditions | LimeTree Hotels",
   description: "Read the Terms & Conditions governing your use of LimeTree Hotels' website, booking platform, and hotel services.",
-};
+  path: "/terms",
+});
 
 export default function TermsPage() {
   return (
     <div className="min-h-screen bg-cream pt-16">
+      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Terms & Conditions", path: "/terms" }])} />
       <section className="bg-dark py-16">
         <div className="container-luxury max-w-3xl">
           <h1 className="font-display font-bold text-white mb-3" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>

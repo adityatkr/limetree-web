@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { WHATSAPP_URL } from "@/lib/utils";
+import JsonLd from "@/components/seo/JsonLd";
+import { faqPageSchema } from "@/lib/seo";
 
 export interface FAQItem {
   q: string;
@@ -25,20 +27,7 @@ export default function FAQSection({
   return (
     <section className={className}>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "FAQPage",
-              mainEntity: faqs.map((f) => ({
-                "@type": "Question",
-                name: f.q,
-                acceptedAnswer: { "@type": "Answer", text: f.a },
-              })),
-            }),
-          }}
-        />
+        <JsonLd data={faqPageSchema(faqs)} />
 
         <div className="text-center mb-12">
           <p className="text-primary-600 text-xs font-semibold uppercase tracking-widest mb-2">{eyebrow}</p>

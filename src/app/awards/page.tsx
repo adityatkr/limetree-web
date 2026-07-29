@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
+import { pageMetadata, breadcrumbSchema } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import Link from "next/link";
 import { ArrowRight, Star, Award } from "lucide-react";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Awards & Recognition | Lime Tree Hotels",
   description: "Lime Tree Hotels has been recognised by Booking.com, MakeMyTrip, TripAdvisor, and Google Reviews for consistently delivering value and quality hospitality.",
-};
+  path: "/awards",
+});
 
 const AWARDS = [
   {
@@ -52,6 +55,7 @@ const CERTIFICATIONS = [
 export default function AwardsPage() {
   return (
     <div className="min-h-screen bg-stone-50 pt-16">
+      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Awards", path: "/awards" }])} />
       {/* Hero */}
       <section className="bg-stone-900 py-24">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

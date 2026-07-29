@@ -161,12 +161,16 @@ export default function HotelsClient({ searchParams }: Props) {
             <div className="flex border border-dark-200 rounded-xl overflow-hidden">
               <button
                 onClick={() => setViewMode("grid")}
+                aria-label="Grid view"
+                aria-pressed={viewMode === "grid"}
                 className={cn("p-2.5 transition-colors", viewMode === "grid" ? "bg-primary-500 text-white" : "text-dark-400 hover:bg-cream-100")}
               >
                 <LayoutGrid size={16} />
               </button>
               <button
                 onClick={() => setViewMode("list")}
+                aria-label="List view"
+                aria-pressed={viewMode === "list"}
                 className={cn("p-2.5 transition-colors", viewMode === "list" ? "bg-primary-500 text-white" : "text-dark-400 hover:bg-cream-100")}
               >
                 <List size={16} />

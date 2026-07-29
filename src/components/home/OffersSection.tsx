@@ -58,6 +58,7 @@ export default function OffersSection() {
                   </div>
                   <button
                     onClick={() => handleCopy(offer.code)}
+                    aria-label={copied === offer.code ? "Promo code copied" : "Copy promo code"}
                     className="w-9 h-9 flex items-center justify-center bg-primary-500 hover:bg-primary-600 text-white rounded-xl transition-colors flex-shrink-0"
                   >
                     {copied === offer.code ? <CheckCheck size={13} /> : <Copy size={13} />}

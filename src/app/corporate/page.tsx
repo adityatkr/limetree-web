@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata, breadcrumbSchema } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import { ArrowRight, CheckCircle2, Users, FileText, Clock, Zap, Plane, Tag, Phone } from "lucide-react";
 import { CORPORATE_BENEFITS } from "@/lib/data";
 import { PHONE_NUMBER, EMAIL, WHATSAPP_URL } from "@/lib/utils";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Corporate Bookings | Business Travel Solutions — Lime Tree Hotels",
   description: "Dedicated corporate travel solutions from Lime Tree Hotels — GST invoicing, Relationship Manager, self-booking portal, 30+ properties across Gurgaon, Delhi & NCR.",
-};
+  path: "/corporate",
+});
 
 const ICON_MAP: Record<string, React.ReactNode> = {
   "Dedicated Relationship Manager": <Users size={18} />,
@@ -22,6 +25,7 @@ const ICON_MAP: Record<string, React.ReactNode> = {
 export default function CorporatePage() {
   return (
     <div className="min-h-screen bg-stone-50 pt-16">
+      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Corporate", path: "/corporate" }])} />
       {/* Hero */}
       <section className="bg-stone-900 py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

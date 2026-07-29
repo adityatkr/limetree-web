@@ -4,6 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Clock, Tag, Calendar } from "lucide-react";
 import { BLOG_POSTS } from "@/lib/data";
+import JsonLd from "@/components/seo/JsonLd";
+import { pageMetadata, blogPostingSchema, breadcrumbSchema } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -15,11 +17,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = BLOG_POSTS.find((p) => p.slug === slug);
   if (!post) return { title: "Post Not Found" };
-  return {
+  return pageMetadata({
     title: `${post.title} | LimeTree Blog`,
     description: post.excerpt,
-    openGraph: { title: post.title, description: post.excerpt, images: [post.image] },
-  };
+    path: `/blog/${post.slug}`,
+    image: post.image,
+  });
 }
 
 const SAMPLE_CONTENT: Record<string, string[]> = {
@@ -62,6 +65,16 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <article className="min-h-screen bg-cream pt-16">
+      <JsonLd
+        data={[
+          blogPostingSchema(post),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Blog", path: "/blog" },
+            { name: post.title, path: `/blog/${post.slug}` },
+          ]),
+        ]}
+      />
       {/* Hero */}
       <div className="relative h-[55vh] min-h-80 bg-dark overflow-hidden">
         <Image src={post.image} alt={post.title} fill className="object-cover opacity-70" priority sizes="100vw" />
