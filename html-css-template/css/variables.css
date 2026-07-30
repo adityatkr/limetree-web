@@ -1,0 +1,90 @@
+/* ==========================================================================
+   Lime Tree Hotels — Shared design tokens & base component styles.
+   Plain CSS, no build step, no framework. Load this file first, before any
+   page-specific stylesheet — every other file in this folder depends on
+   the custom properties and base classes defined here.
+   ========================================================================== */
+
+:root {
+  /* Brand — Green */
+  --primary-50: #f0f7ec; --primary-100: #d8eecf; --primary-200: #b1de9d; --primary-300: #8ad06a;
+  --primary-400: #7ccb4f; --primary-500: #5fb834; --primary-600: #4b9126; --primary-700: #39701c;
+  --primary-800: #285113; --primary-900: #152c0a;
+
+  /* Brand — Gold */
+  --accent-50: #fffce0; --accent-100: #fff8b8; --accent-200: #ffef66; --accent-300: #ffd433;
+  --accent-400: #ffc61a; --accent-500: #fac600; --accent-600: #e6a100; --accent-700: #c26d00;
+
+  /* Neutrals */
+  --stone-50: #fafaf9; --stone-100: #f5f5f4; --stone-200: #e7e5e4; --stone-300: #d6d3d1;
+  --stone-400: #a8a29e; --stone-500: #78716c; --stone-600: #57534e; --stone-700: #44403c;
+  --stone-800: #292524; --stone-900: #1c1917;
+
+  /* Semantic */
+  --success: #4caf50; --error: #e53935; --warning: #ff9800;
+
+  /* Shadows */
+  --shadow-card: 0 4px 24px -4px rgba(0,0,0,0.08);
+  --shadow-elevated: 0 8px 40px -8px rgba(0,0,0,0.12);
+  --shadow-primary: 0 8px 32px -4px rgba(95,184,52,0.32);
+
+  /* Type */
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "Courier New", monospace;
+}
+
+/* ===== reset ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; scroll-behavior: smooth; }
+body { font-family: var(--font-sans); color: var(--stone-900); line-height: 1.6; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; background: none; border: none; color: inherit; }
+:focus-visible { outline: 2px solid var(--primary-500); outline-offset: 2px; border-radius: 4px; }
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; }
+
+/* ===== layout helpers ===== */
+.wrap { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+.eyebrow { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--primary-600); margin-bottom: .5rem; }
+
+/* ===== icons (inline svg) ===== */
+.icon { display: inline-block; vertical-align: -2px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ===== buttons ===== */
+.btn-book {
+  display: inline-flex; align-items: center; justify-content: center; gap: .4rem;
+  padding: 0.7rem 1.4rem; background: var(--primary-500); color: #fff; font-size: 14px;
+  font-weight: 700; border-radius: 0.9rem; box-shadow: var(--shadow-primary); transition: background .15s, transform .15s;
+}
+.btn-book:hover { background: var(--primary-600); transform: translateY(-1px); }
+.btn-book.block { width: 100%; padding: 0.9rem 1.4rem; }
+.btn-outline {
+  display: inline-flex; align-items: center; justify-content: center; gap: .4rem;
+  padding: 0.7rem 1.4rem; background: #fff; color: var(--stone-800); font-size: 14px; font-weight: 700;
+  border: 1px solid var(--stone-200); border-radius: 0.9rem; transition: background .15s;
+}
+.btn-outline:hover { background: var(--stone-50); }
+.btn-whatsapp { display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.5rem 0.875rem; background: #25D366; color: #fff; font-size: 13px; font-weight: 600; border-radius: 0.75rem; transition: background .15s; }
+.btn-whatsapp:hover { background: #20b85a; }
+
+/* ===== badges & pills ===== */
+.badge { font-size: 11px; font-weight: 700; padding: .3rem .7rem; border-radius: 999px; display: inline-flex; }
+.badge-accent { background: var(--accent-500); color: var(--stone-900); }
+.badge-primary { background: var(--primary-500); color: #fff; }
+.pill { font-size: 12px; background: var(--primary-50); color: var(--primary-700); padding: 0.3rem 0.75rem; border-radius: 999px; font-weight: 600; }
+
+/* ===== FAQ accordion (native <details>/<summary>, no JS) ===== */
+.faq-list { display: flex; flex-direction: column; gap: 0.7rem; }
+.faq-item { background: #fff; border-radius: 0.9rem; border: 1px solid var(--stone-200); overflow: hidden; }
+.faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.25rem; cursor: pointer; font-size: 14px; font-weight: 600; color: var(--stone-800); list-style: none; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary:hover { color: var(--primary-600); }
+.faq-item summary .faq-caret { color: var(--stone-400); flex-shrink: 0; transition: transform .2s; }
+.faq-item[open] summary .faq-caret { transform: rotate(180deg); }
+.faq-item-answer { padding: 0 1.25rem 1rem; color: var(--stone-500); font-size: 14px; line-height: 1.7; }
+
+/* ===== reduced motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
